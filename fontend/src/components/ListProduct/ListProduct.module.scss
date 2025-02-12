@@ -1,0 +1,40 @@
+.product-slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 20px;
+  max-width: 1400px;
+  margin: auto;
+
+  .previous-btn, .next-btn {
+    background: none;
+  }
+  .previous-btn i, .next-btn i{
+    font-size: 40px;
+    margin: 0 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .product-container {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+      display: none; // Ẩn thanh cuộn
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-container {
+      flex-wrap: wrap;
+    }
+  }
+  
+}

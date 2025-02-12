@@ -1,0 +1,182 @@
+.product-item {
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 auto;
+    width: 300px;
+    scroll-snap-align: center;
+    text-align: center;
+    user-select: none;
+
+    .image-container {
+      position: relative;
+  
+      .product-image {
+        width: 100%;
+        transition: transform 0.3s ease; // Hiệu ứng phóng to nhẹ khi hover
+      }
+  
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6); // Lớp phủ mờ
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        opacity: 0;
+        transition: opacity 0.3s ease; // Hiệu ứng mượt khi hiển thị
+      }
+      .title-size {
+        color: #0891dc; 
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 7px;
+      }
+      .sizes {
+        display: flex;
+        gap: 10px;
+  
+        .size-button {
+          background-color: #fff;
+          color: #333;
+          padding: 5px 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+  
+          &:hover {
+            background-color: #333;
+            color: #fff;
+          }
+        }
+      }
+    }
+  
+    &:hover {
+      .product-image {
+        transform: scale(1.05); // Phóng to nhẹ ảnh khi hover
+      }
+  
+      .overlay {
+        opacity: 1; // Hiển thị overlay khi hover
+      }
+    }
+  
+
+    .colors {
+      display: flex;
+      gap: 10px;
+
+      .color {
+        width: 30px;
+        height: 20px;
+        border: 3px solid #ddd;
+        border-radius: 15px;
+        cursor: pointer;
+
+        &.active {
+          border-color: rgb(255, 0, 0);
+        }
+      }
+    }
+
+    .product-info {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .product-name {
+        font-size: 16px;
+        font-weight: normal;
+        color: #000;
+      }
+
+      .product-price {
+        margin: 5px 0;
+        font-size: 16px;
+        font-weight: bold;
+        color: #000;
+
+        .old-price {
+          text-decoration: line-through;
+          color: #999;
+          margin-left: 5px;
+        }
+      }
+
+      .product-discount {
+        font-size: 14px;
+        color: var(--white);
+        background: #0891dc;
+        padding: 5px 10px;
+        font-weight: bold;
+        width: 80px;
+        border-radius: 16px;
+      }
+    }
+
+
+    @media (max-width: 768px) { // Mobile
+      .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; // Tạo khoảng cách giữa các sản phẩm
+        gap: 10px;
+      }
+    
+      .product-item {
+        flex: 1 1 calc(50% - 10px); // Chiếm 50% chiều rộng, trừ khoảng cách
+        margin: 5px 0;
+        text-align: center; // Căn giữa nội dung
+        transform: scale(0.9); // Thu nhỏ toàn bộ sản phẩm (nếu cần)
+      }
+    
+      .image-container {
+        .product-image {
+          width: 70%; // Giảm kích thước ảnh
+          height: auto;
+        }
+    
+        .overlay {
+          .sizes {
+            .size-button {
+              padding: 3px 7px; // Thu nhỏ nút kích cỡ
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    
+      .product-info {
+        
+        .product-name {
+          font-size: 14px; // Thu nhỏ font tiêu đề
+        }
+    
+        .product-price {
+          font-size: 14px; // Thu nhỏ font giá
+          .old-price {
+            font-size: 12px; // Thu nhỏ giá cũ
+          }
+        }
+    
+        .product-discount {
+          font-size: 12px; // Thu nhỏ font giảm giá
+          width: 70px; // Giảm kích thước hộp giảm giá
+        }
+      }
+    
+      .colors {
+        .color {
+          width: 20px;
+          height: 15px; // Giảm kích thước nút màu
+        }
+      }
+    }
+    
+  }

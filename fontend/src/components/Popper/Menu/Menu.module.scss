@@ -1,0 +1,49 @@
+.category-menu {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    user-select: none;
+  
+    .categories {
+      display: flex;
+      flex: 2;
+      gap: 20px;
+  
+      .category {
+        flex: 1;
+  
+        .category-title {
+          font-weight: bold;
+          color: var(--black);
+          font-size: 16px;
+          margin-bottom: 10px;
+          border-bottom: 2px solid black;
+          display: inline-block;
+        }
+  
+        .category-list {
+          list-style: none;
+          padding: 0;
+  
+          .category-item {
+            font-size: 14px;
+            color: #333;
+            margin: 9px 3px;
+            cursor: pointer;
+  
+            &:hover {
+              text-decoration: underline;
+              color: #0066cc;
+            }
+  
+            &.highlight {
+              font-weight: bold;
+              color: #0066cc;
+            }
+          }
+        }
+      }
+    }
+  }
+  

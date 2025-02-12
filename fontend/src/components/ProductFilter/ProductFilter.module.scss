@@ -1,0 +1,115 @@
+.product-filter {
+    display: flex;
+    padding: 20px;
+    background-color: #f9f9f9;
+  
+    .sidebar {
+      flex: 1;
+      max-width: 300px;
+      margin-right: 20px;
+  
+      .filter-group {
+        margin-bottom: 20px;
+  
+        h4 {
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+  
+        .filter-item {
+          margin-bottom: 10px;
+  
+          label {
+            margin-left: 8px;
+          }
+        }
+  
+        .size-group {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+  
+          .size-item {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #fff;
+  
+            &.active {
+              background: #000;
+              color: #fff;
+            }
+          }
+        }
+  
+        .color-group {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+  
+          .color-item {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+  
+            &.active {
+              border-color: #000;
+            }
+  
+            span {
+              font-size: 14px;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  
+    .product-list {
+      flex: 3;
+  
+      .breadcrumb {
+        font-size: 14px;
+        color: #999;
+        margin-bottom: 20px;
+      }
+  
+      h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+  
+      .products {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+  
+        .product-item {
+          background: #fff;
+          padding: 15px;
+          border-radius: 10px;
+          text-align: center;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+          img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+          }
+  
+          p {
+            font-size: 14px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+  

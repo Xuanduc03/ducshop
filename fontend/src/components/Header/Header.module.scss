@@ -1,0 +1,145 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #222;
+  color: #fff;
+  height: 75px;
+  width: 100%;
+
+  .mobile-menu {
+    display: none;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+
+
+    &:hover {
+      color: #aaa;
+    }
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+
+    .logo-highlight {
+      color: #fff;
+      background-color: #000;
+      padding: 2px 4px;
+    }
+  }
+
+  .menu {
+    display: flex;
+    align-items: center;
+
+    .menu-link {
+      text-decoration: none;
+      color: #fff;
+      font-size: 14px;
+      padding: 31px 16px;
+      transition: 0.3s all ease-in-out;
+
+      &:hover {
+        background-color: rgba(199, 216, 244, 0.5);
+      }
+    }
+
+    .sale {
+      color: orange;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background-color: #333;
+      border-radius: 20px;
+      padding: 5px 10px;
+
+      .fa-search {
+        margin-right: 5px;
+        color: #aaa;
+      }
+
+      .search-input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: 14px;
+        padding: 8px;
+
+        &::placeholder {
+          color: #aaa;
+        }
+      }
+    }
+
+    .icon {
+      font-size: 18px;
+      color: #fff;
+      cursor: pointer;
+      position: relative;
+
+      &.cart {
+        .cart-count {
+          position: absolute;
+          top: -5px;
+          right: -10px;
+          background-color: yellow;
+          color: #000;
+          font-size: 12px;
+          border-radius: 50%;
+          padding: 2px 5px;
+        }
+      }
+
+      &:hover {
+        color: #aaa;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .menu {
+      display: none;
+    }
+
+    .actions {
+      justify-content: space-between;
+      gap: 0;
+    }
+    .search-bar .fa-search{
+      padding: 0px;
+    }
+
+    .search-input{
+      display: none;
+    }
+
+    .mobile-menu {
+      display: block;
+    }
+
+    .logo {
+      flex: 1;
+      text-align: center;
+    }
+
+    .icon {
+      margin-left: 6px;
+    }
+  }
+}
