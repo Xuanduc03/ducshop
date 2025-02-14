@@ -1,5 +1,5 @@
 import React from 'react';
-import Checkout from '~/components/CheckOut';
+import Cart from '~/components/Carts/Cart';
 
 const items = [
    {
@@ -13,10 +13,10 @@ const items = [
    }
 ];
 
-export const Cart = () => {
+export const CartPage = () => {
   return (
     <div>
-      <Checkout product={items}/>
+      <Cart />
     </div>
   )
 }

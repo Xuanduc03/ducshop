@@ -1,0 +1,60 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .banner-content {
+    position: relative;
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    border-radius: 10px;
+  
+    .image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+  
+    .overlay {
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      transform: translateY(-50%);
+      color: black;
+      max-width: 40%;
+    }
+  
+    .title {
+      font-size: 3rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+  
+    .voucher {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin: 10px 0;
+    }
+  
+    .btn-explore {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background-color: #0056ff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: 0.3s ease-in-out;
+  
+      &:hover {
+        background-color: #003bb3;
+      }
+    }
+  }
+  

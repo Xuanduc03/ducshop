@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Login.module.scss";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -45,7 +46,7 @@ function Login() {
         </div>
 
         <p className={cx("login__signup")}>
-          Chưa có tài khoản? <a href="#!">Đăng ký ngay</a>
+          Chưa có tài khoản? <Link to={'/signup'}>Đăng ký ngay</Link>
         </p>
       </div>
     </div>
