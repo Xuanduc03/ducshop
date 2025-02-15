@@ -8,14 +8,15 @@ const app = express();
 require("dotenv").config();
 
 app.use(cors({
-    origin: process.env.FONTEND_DOMAIN_URL,
+    origin: process.env.FONTEND_DOMAIN_URL || "http://localhost:3000",
     credentials: true
 }));
 
 // use middleware 
+app.use(cookieParser());
 app.use(express.json());
 app.use("/api", router);
-app.use(cookieParser());
+
 
 // port server
 connectDB().then(() => {

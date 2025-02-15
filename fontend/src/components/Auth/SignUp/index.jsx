@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 function SignUp() {
   const navigate = useNavigate();
   const [data, setData] = useState({
-    fullname: '', email: '', phone: '', password: '', role : 'user'
+    fullname: '', email: '', phone: '', password: '', role: 'admin'
   });
 
   const handleChange = (e) => {
@@ -22,22 +22,32 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!/^\d{10}$/.test(data.phone)) { // Regex kiểm tra số điện thoại 10 số
+      toast.error("Số điện thoại phải là 10 chữ số");
+      return;
+    }
+    try {
+      const response = await axios({
+        url: SummaryApi.SignUp.url,
+        method: SummaryApi.SignUp.method,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        data: data
+      });
 
-    const response = await axios({
-      url: SummaryApi.SignUp.url,
-      method: SummaryApi.SignUp.method,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      data: data
-    });
-
-    const result = await response.data;
-    if(result.success){
-      toast.success("Đăng ký thành công");
-      navigate("/");
-    }else {
-      toast.error("Không thể đăng ký ");
+      if (response.data.success) {
+        toast.success("Đăng ký thành công");
+        navigate("/");
+      } else {
+        toast.error("Không thể đăng ký");
+      }
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message || "Có lỗi xảy ra khi đăng ký");
+      } else {
+        toast.error("Lỗi kết nối, vui lòng thử lại");
+      }
     }
   }
   return (
@@ -51,6 +61,7 @@ function SignUp() {
             <label>Tên của bạn</label>
             <input
               type="text"
+              pattern="^[a-zA-ZÀ-ỹ\s]+$"
               name="fullname"
               value={data.fullname}
               onChange={handleChange}
@@ -60,11 +71,11 @@ function SignUp() {
           <div className={cx("form-group")}>
             <label>SĐT của bạn</label>
             <input
-              type="number"
+              type="text"
               name="phone"
               value={data.phone}
               onChange={handleChange}
-              min="10"
+              pattern="\d{10}"
               required
               placeholder="Nhập Số điện thoại của bạn" />
           </div>
@@ -99,15 +110,6 @@ function SignUp() {
 
           <button className={cx("SignUp__button")} type="submit">Đăng ký</button>
         </form>
-
-        <div className={cx("SignUp__divider")}>
-          <span>Hoặc</span>
-        </div>
-
-        <div className={cx("social-SignUp")}>
-          <button className={cx("social-button", "google")}>Đăng nhập với Google</button>
-          <button className={cx("social-button", "facebook")}>Đăng nhập với Facebook</button>
-        </div>
 
         <p className={cx("SignUp__signup")}>
           bạn có tài khoản? <Link to={'/login'}>Đăng nhập ngay</Link>

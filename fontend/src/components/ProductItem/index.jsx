@@ -5,16 +5,26 @@ import classNames from 'classnames/bind';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(style);
-export const ProductItem = ({ product,index }) => {
+export const ProductItem = ({ product, index }) => {
     const [selectedColor, setSelectedColor] = useState("");
+    const [currentImage, setCurrentImage] = useState(product.image[0]);
 
     const handleColorChange = (color) => setSelectedColor(color);
-  
+
     return (
         <div key={index} className={cx("product-item")}>
-
-            <div className={cx("image-container")}>
-                <img src={product.image} alt={product.name} className={cx("product-image")} />
+            <div className={cx("image-container")}
+                onMouseEnter={() => setCurrentImage(product.image[1])} 
+                onMouseLeave={() => setCurrentImage(product.image[0])}
+            >
+                <Link to={'/product'}>
+                <img
+                    src={currentImage}
+                    alt={product.name}
+                    className={cx("product-image")}
+                />
+                </Link>
+                
                 <div className={cx("overlay")}>
                     <p className={cx('title-size')}>Thêm nhanh vào giỏ hàng</p>
                     <div className={cx("sizes")}>
@@ -41,10 +51,11 @@ export const ProductItem = ({ product,index }) => {
             <Link to={"/product"} className={cx("product-info")}>
                 <p className={cx("product-name")}>{product.name}</p>
                 <p className={cx("product-price")}>
-                    {product.price}{" "}
-                    <span className={cx("old-price")}>{product.oldPrice}</span>
+                    {product.price}{" "}đ
+                    <span className={cx("old-price")}>{product.oldPrice}đ</span>
+                    <p className={cx("product-discount")}>{product.discount}%</p>
                 </p>
-                <p className={cx("product-discount")}>{product.discount}</p>
+
             </Link>
         </div>
     )

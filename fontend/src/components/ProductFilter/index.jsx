@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./ProductFilter.module.scss";
+import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
 const ProductFilter = () => {
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const selectedCategory = useSelector((state) => state.category.selectedCategory);
+
+  const [selectedCategories, setSelectedCategory] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
 
@@ -34,7 +37,7 @@ const ProductFilter = () => {
                 type="radio"
                 id={`category-${index}`}
                 name="category"
-                checked={selectedCategory === category}
+                checked={selectedCategories === category}
                 onChange={() => setSelectedCategory(category)}
               />
               <label htmlFor={`category-${index}`}>{category}</label>
@@ -76,8 +79,8 @@ const ProductFilter = () => {
 
       {/* Product List */}
       <div className={cx("product-list")}>
-        <h2>Quần Nam</h2>
-        <div className={cx("breadcrumb")}>Trang chủ / Quần Nam</div>
+        <h2 className={cx("category-title")}>{selectedCategory.name}</h2>
+        <div className={cx("breadcrumb")}>Trang chủ / {selectedCategory.name}</div>
         <div className={cx("products")}>
           <div className={cx("product-item")}>
             <img src="https://via.placeholder.com/150" alt="Product 1" />

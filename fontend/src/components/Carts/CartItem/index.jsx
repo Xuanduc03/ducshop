@@ -17,8 +17,8 @@ const CartItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
           <button onClick={() => onUpdateQuantity(item.id, "increase")}>+</button>
         </div>
       </div>
-      <div className={cx("cart-item__price")}>€ {item.price.toFixed(2)}</div>
-      <button className={cx("cart-item__remove")} onClick={() => onRemoveItem(item.id)}>×</button>
+      <div className={cx("cart-item__price")}>đ {item.price.toFixed(2)}</div>
+      <button className={cx("cart-item__remove")} onClick={() => onRemoveItem(item.id)}><i class="fa-solid fa-delete-left"></i></button>
     </div>
   );
 };

@@ -11,7 +11,7 @@ const publicRoute = [
     {path: '/login', component: LoginPage},
     {path: '/signup', component: SignUpPage},
     {path: '/cart', component: CartPage},
-    {path: '/collection', component: Collections}
+    {path: '/collection/:category', component: Collections}
 ];
 
 const privateRoute = [

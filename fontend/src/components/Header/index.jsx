@@ -4,6 +4,7 @@ import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import { Menu } from '~/components/Popper/Menu';
 import { CountCart } from '~/components/Popper/CountCart';
+import { UserOption } from "~/components/Popper/UserOption";
 
 const cx = classNames.bind(styles);
 const categories = [
@@ -90,7 +91,7 @@ export const Header = () => {
       </div>
       {/* Logo */}
       <Link to="/" className={cx('logo')}>
-        <span className={cx('logo-highlight')}>COOL</span>MATE
+        <span className={cx('logo-highlight')}>DUC</span>MATE
       </Link>
 
       {/* Menu */}
@@ -121,9 +122,9 @@ export const Header = () => {
         </div>
 
         {/* User Icon */}
-        <Link to={'/login'} className={cx('icon')}>
-          <i className="fas fa-user"></i>
-        </Link>
+        <UserOption>
+          <i className={cx("fas fa-user")}></i>
+        </UserOption>
 
         {/* Cart Icon */}
         <div className={cx('icon', 'cart')}>

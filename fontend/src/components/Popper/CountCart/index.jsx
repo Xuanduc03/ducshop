@@ -41,6 +41,7 @@ export const CountCart = ({ children, items = [] }) => {
         <Tippy
             interactive
             placement="bottom-end"
+            delay={200}
             render={(attrs) => (
                 <div className={cx('content')} {...attrs}>
                     <PopperWrapper>

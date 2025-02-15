@@ -16,9 +16,7 @@ const UserSchema = mongoose.Schema({
         max: 50
     },
     phone: {
-        type: Number,
-        min: 0,
-        max: 10
+        type: Number
     },
     address : {
         type: String,

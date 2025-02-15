@@ -10,7 +10,7 @@ export const ListProduct = ({ items = [] }) => {
 
   const handleScroll = (direction) => {
     if (containerRef.current) {
-      const scrollAmount = 300; // Khoảng cách trượt
+      const scrollAmount = 500; // Khoảng cách trượt
       containerRef.current.scrollLeft += direction === "next" ? scrollAmount : -scrollAmount;
     }
   };

@@ -11,61 +11,66 @@
       position: relative;
   
       .product-image {
+        height: 400px;
         width: 100%;
+        margin-bottom: 10px;
         transition: transform 0.3s ease; // Hiệu ứng phóng to nhẹ khi hover
       }
   
       .overlay {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6); // Lớp phủ mờ
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        text-align: center;
+        padding: 12px;
         opacity: 0;
-        transition: opacity 0.3s ease; // Hiệu ứng mượt khi hiển thị
-      }
-      .title-size {
-        color: #0891dc; 
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 7px;
-      }
-      .sizes {
-        display: flex;
-        gap: 10px;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        transform: translate3d(-50%, 20px, 0);
   
-        .size-button {
-          background-color: #fff;
-          color: #333;
-          padding: 5px 10px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: background-color 0.2s;
+        .title-size {
+          font-size: 14px;
+          font-weight: bold;
+        }
   
-          &:hover {
-            background-color: #333;
-            color: #fff;
+        .sizes {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 8px;
+  
+          .size-button {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+  
+            &:hover {
+              background: black;
+              color: white;
+            }
           }
         }
       }
-    }
   
-    &:hover {
-      .product-image {
-        transform: scale(1.05); // Phóng to nhẹ ảnh khi hover
+      &:hover {
+        .product-image {
+          cursor: pointer;
+          transform: scale(1.05);
+        }
+  
+        .overlay {
+          opacity: 1;
+          transform: translate(-50%, 0);
+        }
       }
-  
-      .overlay {
-        opacity: 1; // Hiển thị overlay khi hover
-      }
     }
-  
 
     .colors {
       display: flex;
@@ -100,6 +105,9 @@
         margin: 5px 0;
         font-size: 16px;
         font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 6px;
         color: #000;
 
         .old-price {
@@ -113,35 +121,24 @@
         font-size: 14px;
         color: var(--white);
         background: #0891dc;
-        padding: 5px 10px;
+        padding: 5px 5px;
         font-weight: bold;
-        width: 80px;
+        width: 50px;
         border-radius: 16px;
       }
     }
 
 
     @media (max-width: 768px) { // Mobile
-      .product-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between; // Tạo khoảng cách giữa các sản phẩm
-        gap: 10px;
-      }
-    
-      .product-item {
-        flex: 1 1 calc(50% - 10px); // Chiếm 50% chiều rộng, trừ khoảng cách
-        margin: 5px 0;
-        text-align: center; // Căn giữa nội dung
-        transform: scale(0.9); // Thu nhỏ toàn bộ sản phẩm (nếu cần)
-      }
-    
+      flex: 1 1 189px; // Đặt kích thước co giãn linh hoạt
+      width: 189px;
+
       .image-container {
         .product-image {
-          width: 70%; // Giảm kích thước ảnh
-          height: auto;
+          width: 189px;
+          height: 252px;
         }
-    
+  
         .overlay {
           .sizes {
             .size-button {
@@ -151,27 +148,28 @@
           }
         }
       }
-    
+  
       .product-info {
-        
+        align-items: center;
         .product-name {
           font-size: 14px; // Thu nhỏ font tiêu đề
         }
-    
+  
         .product-price {
-          font-size: 14px; // Thu nhỏ font giá
+          font-size: 10px; // Thu nhỏ font giá
           .old-price {
             font-size: 12px; // Thu nhỏ giá cũ
           }
         }
-    
+  
         .product-discount {
           font-size: 12px; // Thu nhỏ font giảm giá
-          width: 70px; // Giảm kích thước hộp giảm giá
+          width: 40px; // Giảm kích thước hộp giảm giá
         }
       }
-    
+  
       .colors {
+        justify-content: center;
         .color {
           width: 20px;
           height: 15px; // Giảm kích thước nút màu

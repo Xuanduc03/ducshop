@@ -32,8 +32,31 @@
   }
 
   @media (max-width: 768px) {
+    padding: 0;
     .product-container {
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); // Hiển thị 2 sản phẩm mỗi hàng
+      gap: 10px;
+    }
+
+    .previous-btn i
+    {
+      font-size: 20px;
+      margin: 0 10px;
+      top: 50%;
+      right: calc(100% - 2.275rem);
+      position: absolute;
+    } 
+    .next-btn i{
+      font-size: 20px;
+      margin: 0 10px;
+      top: 50%;
+      left: calc(100% - 2.275rem);
+      position: absolute;
+  
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
   
