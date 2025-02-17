@@ -16,6 +16,15 @@ const SummaryApi = {
     GetUser: {
         url: `${backendDomain}/api/user`,
         method: 'get'
+    },
+    //api category 
+    GetCategories : {
+        url : `${backendDomain}/api/categories`,
+        method: "get"
+    },
+    GetSubCategories : {
+         url : `${backendDomain}/api/subcategories`,
+        method: "get"
     }
 };
 

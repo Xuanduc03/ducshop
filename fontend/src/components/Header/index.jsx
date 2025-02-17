@@ -7,58 +7,6 @@ import { CountCart } from '~/components/Popper/CountCart';
 import { UserOption } from "~/components/Popper/UserOption";
 
 const cx = classNames.bind(styles);
-const categories = [
-  {
-    title: 'THEO SẢN PHẨM',
-    items: [
-      { name: 'Tất cả', highlight: false },
-      { name: 'Sản phẩm mới', highlight: true },
-      { name: 'Bán chạy nhất', highlight: false },
-      { name: 'Combo/Set đồ', highlight: false },
-      { name: 'Đồ thu đông', highlight: false },
-      { name: 'Exdry', highlight: false },
-    ],
-  },
-  {
-    title: 'ÁO NAM',
-    items: [
-      { name: 'Tất cả Áo Nam' },
-      { name: 'Áo thun' },
-      { name: 'Áo sơ mi' },
-      { name: 'Áo nỉ (sweatshirt)' },
-      { name: 'Áo polo' },
-      { name: 'Áo dài tay' },
-      { name: 'Áo khoác' },
-      { name: 'Áo Tanktop' },
-      { name: 'Áo thể thao' },
-    ],
-  },
-  {
-    title: 'QUẦN NAM',
-    items: [
-      { name: 'Tất cả Quần Nam' },
-      { name: 'Quần shorts' },
-      { name: 'Quần dài' },
-      { name: 'Quần jean' },
-      { name: 'Quần kaki' },
-      { name: 'Quần jogger' },
-      { name: 'Quần thể thao' },
-      { name: 'Quần lót' },
-      { name: 'Quần bơi' },
-    ],
-  },
-  {
-    title: 'PHỤ KIỆN NAM',
-    items: [
-      { name: 'Tất cả phụ kiện' },
-      { name: 'Tất/Vớ' },
-      { name: 'Mũ/Nón' },
-      { name: 'Túi' },
-      { name: 'Ví/Thắt lưng' },
-      { name: 'Ly/Cốc' },
-    ],
-  },
-];
 
 const items = [
   {
@@ -83,6 +31,7 @@ const items = [
 
 
 export const Header = () => {
+ 
   return (
     <header className={cx('header')}>
 
@@ -97,15 +46,14 @@ export const Header = () => {
       {/* Menu */}
       <nav className={cx('menu')}>
         <span className={cx('sale')}>-50% THU ĐÔNG</span>
-        <Menu items={categories}>
+        <Menu>
           <a href="#" className={cx('menu-link')}>SẢN PHẨM</a>
         </Menu>
 
 
-        <a href="#" className={cx('menu-link')}>ĐỒ LÓT</a>
-        <a href="#" className={cx('menu-link')}>ĐỒ THỂ THAO</a>
-        <a href="#" className={cx('menu-link')}>MẶC HÀNG NGÀY</a>
-        <a href="#" className={cx('menu-link')}>SẢN XUẤT RIÊNG</a>
+        <a href="#" className={cx('menu-link')}>Áo nam</a>
+        <a href="#" className={cx('menu-link')}>quần nam</a>
+        <a href="#" className={cx('menu-link')}>phụ kiện</a>
         <a href="#" className={cx('menu-link')}>CARE & SHARE</a>
       </nav>
 

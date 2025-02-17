@@ -2,7 +2,7 @@
     position: relative;
     overflow: hidden;
     flex: 0 0 auto;
-    width: 300px;
+    width: 264px;
     scroll-snap-align: center;
     text-align: center;
     user-select: none;
@@ -11,7 +11,7 @@
       position: relative;
   
       .product-image {
-        height: 400px;
+        height: 350px;
         width: 100%;
         margin-bottom: 10px;
         transition: transform 0.3s ease; // Hiệu ứng phóng to nhẹ khi hover

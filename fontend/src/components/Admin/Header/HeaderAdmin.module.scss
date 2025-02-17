@@ -1,0 +1,117 @@
+// HeaderAdmin.module.scss
+.header {
+  background-color: #343a40; // Dark background
+  color: white;
+  padding: 1rem 0; // Padding top and bottom
+  position: fixed; // Fixed position
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100; // Ensure it's on top
+
+  &__container {
+    display: flex;
+    justify-content: space-between; // Distribute space between left, center, and right
+    align-items: center;
+    margin: 0 auto;
+    padding: 0 20px;
+
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    margin-right: 20px;
+    & img {
+      height: 40px; // Adjust logo height as needed
+    }
+  }
+
+  &__toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 20px; // Space from logo on smaller screens
+    display: flex;
+    align-items: center;
+  }
+
+  &__search-form {
+    display: flex;
+  }
+
+  &__search-input {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    width: 250px;
+  }
+
+  &__search-btn {
+    background-color: #007bff; // Blue button
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+  }
+
+  &__user-menu {
+    position: relative; // For positioning the dropdown
+    display: inline-block;
+  }
+
+  &__user-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    color: black;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none; // Hidden by default
+    min-width: 160px; // Minimum width
+    &.show{
+        display: block; // Show when the button is clicked
+    }
+  }
+
+  &__user-item {
+    padding: 0.5rem 1rem;
+  }
+
+  &__user-link {
+    color: black;
+    text-decoration: none;
+    display: block; // Make the whole list item clickable
+
+    &:hover {
+      background-color: #f0f0f0; // Light gray on hover
+    }
+  }
+}

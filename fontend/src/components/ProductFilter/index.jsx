@@ -1,18 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./ProductFilter.module.scss";
-import { useSelector } from "react-redux";
+import axios from "axios";
+import { useLocation, useParams } from "react-router-dom";
+import { ProductItem } from "../ProductItem";
 
 const cx = classNames.bind(styles);
 
 const ProductFilter = () => {
-  const selectedCategory = useSelector((state) => state.category.selectedCategory);
+  const { categoryId } = useParams();
+  const location = useLocation();
+  const categoryName = location.state?.categoryName || "Đang tải...";
 
-  const [selectedCategories, setSelectedCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const responseCategory = await axios.get(`http://localhost:8080/api/subcategories/${categoryId}`);
+        const responseProduct = await axios.get(`http://localhost:8080/api/products/category/${categoryId}`);
+        setCategories(responseCategory.data.data);
+        console.log(responseProduct.data.data);
+        setProducts(responseProduct.data.data);
+      } catch (error) {
+        console.error("Lấy danh mục ko thành công", error);
+      }
+    };
+
+    fetchCategories();
+  }, [categoryId])
+
+  // State cho filter
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
 
-  const categories = ["Quần Dài", "Quần Shorts", "Quần Lót", "Quần Bơi"];
+  // Mảng kích cỡ và màu sắc
   const sizes = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
   const colors = [
     { name: "Đen", code: "#000000" },
@@ -25,26 +48,32 @@ const ProductFilter = () => {
     { name: "Navy", code: "#000080" },
   ];
 
+
+
   return (
     <div className={cx("product-filter")}>
       {/* Sidebar */}
       <div className={cx("sidebar")}>
+        {/* Filter Danh Mục Con */}
         <div className={cx("filter-group")}>
-          <h4>Nhóm sản phẩm</h4>
-          {categories.map((category, index) => (
-            <div key={index} className={cx("filter-item")}>
+          <h4 className={cx("filter-title")}>Nhóm sản phẩm</h4>
+          {categories?.map((subCategory) => (
+            <div key={subCategory._id} className={cx("filter-item")}>
               <input
                 type="radio"
-                id={`category-${index}`}
+                id={`category-${subCategory._id}`}
                 name="category"
-                checked={selectedCategories === category}
-                onChange={() => setSelectedCategory(category)}
+                checked={selectedSubCategory === subCategory.name}
+                onChange={() => setSelectedSubCategory(subCategory.name)}
               />
-              <label htmlFor={`category-${index}`}>{category}</label>
+              <label htmlFor={`category-${subCategory._id}`}>
+                {subCategory.name}
+              </label>
             </div>
           ))}
         </div>
 
+        {/* Filter Kích Cỡ */}
         <div className={cx("filter-group")}>
           <h4>Kích cỡ</h4>
           <div className={cx("size-group")}>
@@ -60,6 +89,7 @@ const ProductFilter = () => {
           </div>
         </div>
 
+        {/* Filter Màu Sắc */}
         <div className={cx("filter-group")}>
           <h4>Màu sắc</h4>
           <div className={cx("color-group")}>
@@ -79,26 +109,25 @@ const ProductFilter = () => {
 
       {/* Product List */}
       <div className={cx("product-list")}>
-        <h2 className={cx("category-title")}>{selectedCategory.name}</h2>
-        <div className={cx("breadcrumb")}>Trang chủ / {selectedCategory.name}</div>
-        <div className={cx("products")}>
-          <div className={cx("product-item")}>
-            <img src="https://via.placeholder.com/150" alt="Product 1" />
-            <p>Quần Dài</p>
-          </div>
-          <div className={cx("product-item")}>
-            <img src="https://via.placeholder.com/150" alt="Product 2" />
-            <p>Quần Shorts</p>
-          </div>
-          <div className={cx("product-item")}>
-            <img src="https://via.placeholder.com/150" alt="Product 3" />
-            <p>Quần Lót</p>
-          </div>
-          <div className={cx("product-item")}>
-            <img src="https://via.placeholder.com/150" alt="Product 4" />
-            <p>Quần Bơi</p>
-          </div>
+        <div className={cx("breadcrumb")}>Trang chủ / {categoryName}</div>
+        <h2 className={cx("category-title")}>{categoryName}</h2>
+
+        {/* Danh sách danh mục con */}
+        <div className={cx("subcategory-list")}>
+          {categories?.map((subCategory) => (
+            <div key={subCategory._id} className={cx("category-item")}>
+              <img src={subCategory.image} alt={subCategory.name} className={cx("subcategory-image")} />
+              <p className={cx("subcategory-title")}>{subCategory.name}</p>
+            </div>
+          ))}
         </div>
+
+        <div className={cx("product-list__item")}>
+          {products.map((product, index) => (
+            <ProductItem product={product} key={index} />
+          ))}
+        </div>
+
       </div>
     </div>
   );

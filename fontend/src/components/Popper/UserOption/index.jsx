@@ -26,7 +26,7 @@ export const UserOption = ({ children}) => {
                       setUser(response.data);
                   }
               } catch (error) {
-                  console.error("Error fetching user info:", error);
+                  
               }
           };
           fetchUserInfo();

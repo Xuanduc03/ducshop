@@ -8,6 +8,8 @@ const productData = {
     current: "231.000",
     original: "289.000",
   },
+  category: "áo nam",
+  subcategory: "áo khoác",
   discounts: "-20%",
   images: [
     {

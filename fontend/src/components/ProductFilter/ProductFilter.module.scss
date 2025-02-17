@@ -11,7 +11,7 @@
       .filter-group {
         margin-bottom: 20px;
   
-        h4 {
+        .filter-title {
           font-size: 16px;
           font-weight: bold;
           margin-bottom: 10px;
@@ -75,8 +75,56 @@
     .category-title{
       text-transform: uppercase;
     }
+
+    
     .product-list {
       flex: 3;
+
+
+      .subcategory-list {
+        display: flex;
+        gap: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+  
+        .category-item{
+          display: flex;
+          flex-direction: column;
+          padding: 10px;
+          transition: 0.4s all ease-in-out;
+  
+          .subcategory-image {
+            height: 156px;
+            width: 115px;
+            border-radius: 10px;
+            margin-bottom: 7px;
+           }
+
+          .subcategory-title {
+            font-weight: 600;
+            font-size: 16px;
+          }
+
+          &:hover {
+
+            transform: translateY(-10px);
+            cursor: pointer;
+          }
+
+          &:focus {
+            border: 2px solid #2f5acf;
+          }
+        }
+        
+      }
+
+      .product-list__item {
+        display: flex;
+        margin-top: 20px;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      
   
       .breadcrumb {
         font-size: 14px;

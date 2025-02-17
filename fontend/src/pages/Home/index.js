@@ -2,9 +2,6 @@ import React from 'react'
 import { Carousel } from '~/components/Banner/carousel';
 import { Banners } from '~/components/Banner/banners';
 import { ListCategory } from '~/components/ListCategory'
-import { ListProduct } from '~/components/ListProduct';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 const Category = [
   {
@@ -149,7 +146,7 @@ export default function Home() {
     <div>
       <Carousel />
       <ListCategory items={Category} />
-      <ListProduct items={products}/>
+      {/* <ListProduct items={products}/> */}
       <Banners items={BannerItem}/>
       Home Page
     </div>

@@ -1,3 +1,8 @@
+
+import AddProduct from "~/components/Admin/Product/AddProduct";
+import CategoryManager from "~/pages/Admin/CategoryManager";
+import Dashboard from "~/pages/Admin/Dashboard";
+import UserManager from "~/pages/Admin/UserManager";
 import { CartPage } from "~/pages/Cart";
 import { Collections } from "~/pages/Collections";
 import Home from "~/pages/Home";
@@ -11,10 +16,14 @@ const publicRoute = [
     {path: '/login', component: LoginPage},
     {path: '/signup', component: SignUpPage},
     {path: '/cart', component: CartPage},
-    {path: '/collection/:category', component: Collections}
+    {path: '/collection/:categoryId', component: Collections}
 ];
 
 const privateRoute = [
-
+    {path: "/admin/dashboard", component: Dashboard},
+    {path: "/admin/users", component: UserManager},
+    {path: "/admin/categories", component: CategoryManager},
+    {path: "/admin/product/addproduct", component: AddProduct}
 ];
+
 export {publicRoute, privateRoute};

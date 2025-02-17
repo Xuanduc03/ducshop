@@ -1,0 +1,72 @@
+$sidebar-width: 250px;
+$sidebar-background: #f8f9fa;
+$text-color: #343a40;
+$icon-size: 20px;
+$item-padding: 10px 20px;
+$border-color: #dee2e6;
+
+.sidebar {
+  width: $sidebar-width;
+  background-color: $sidebar-background;
+  color: $text-color;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid $border-color;
+
+  &__logo {
+    padding: 20px;
+    text-align: center;
+
+    & img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  &__nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; // Enable flexbox for the nav
+    flex-direction: column; // Stack items vertically
+  }
+
+  &__item {
+    padding: $item-padding;
+    transition: background-color 0.3s ease;
+    order: 0; // Default order for all items
+
+    &:hover {
+      background-color: #e9ecef;
+    }
+
+    &--logout {
+      border-top: 1px solid $border-color;
+      margin-top: 20px;
+      order: 1; // Place logout at the end
+    }
+  }
+
+  &__link {
+    color: $text-color;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+
+  &__icon {
+    margin-right: 10px;
+    width: $icon-size;
+    text-align: center;
+    color: darken($text-color, 20%);
+  }
+}

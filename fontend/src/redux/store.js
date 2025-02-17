@@ -6,7 +6,7 @@ import productReducer from './productSlice';
 const store = configureStore({
     reducer: {
         user: userReducer,
-        category: categoryReducer,
+        categories: categoryReducer,
         product: productReducer
     },
 });

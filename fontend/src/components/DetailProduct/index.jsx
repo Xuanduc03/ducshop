@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const cx = classNames.bind(style);
 
-const ImageSwitcher = ({ images = [], productName, price, discounts, colors, sizes, description, category }) => {
+const ImageSwitcher = ({ images = [], productName, price, discounts, colors, sizes, description, category,subcategory }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(colors?.[0]?.name || "");
   const [selectedSize, setSelectedSize] = useState("");
@@ -23,6 +23,8 @@ const ImageSwitcher = ({ images = [], productName, price, discounts, colors, siz
           <Link to={'/'}>Trang chủ</Link>
           <span> / </span>
           <Link to={'/collection'}>{category}</Link>
+          <span> / </span>
+          <Link>{subcategory}</Link>
         </ul>
       </nav>
       <div className={cx("image-switcher")}>
