@@ -1,32 +1,34 @@
-// HeaderAdmin.module.scss
 .header {
-  background-color: #343a40; // Dark background
-  color: white;
-  padding: 1rem 0; // Padding top and bottom
-  position: fixed; // Fixed position
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100; // Ensure it's on top
+  background: #2c3e50;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
   &__container {
     display: flex;
-    justify-content: space-between; // Distribute space between left, center, and right
+    width: 100%;
+    justify-content: space-between;
     align-items: center;
-    margin: 0 auto;
-    padding: 0 20px;
-
   }
 
+  // LEFT SECTION
   &__left {
     display: flex;
     align-items: center;
+    gap: 15px;
   }
 
   &__logo {
-    margin-right: 20px;
-    & img {
-      height: 40px; // Adjust logo height as needed
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    .logo-highlight {
+      color: #f39c12;
     }
   }
 
@@ -36,40 +38,60 @@
     color: white;
     font-size: 1.2rem;
     cursor: pointer;
-    padding: 0;
-    margin-right: 20px; // Space from logo on smaller screens
-    display: flex;
-    align-items: center;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #f39c12;
+    }
+  }
+
+  // CENTER (SEARCH)
+  &__center {
+    flex-grow: 1;
+    max-width: 400px;
   }
 
   &__search-form {
     display: flex;
+    background: #34495e;
+    border-radius: 20px;
+    overflow: hidden;
+
+    input {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: white;
+      font-size: 1rem;
+
+      &::placeholder {
+        color: #bbb;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #f39c12;
+      }
+    }
   }
 
-  &__search-input {
-    padding: 0.5rem;
-    border: none;
-    border-radius: 4px 0 0 4px;
-    width: 250px;
-  }
-
-  &__search-btn {
-    background-color: #007bff; // Blue button
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-  }
-
+  // RIGHT (USER MENU)
   &__right {
-    display: flex;
-    align-items: center;
+    position: relative;
   }
 
   &__user-menu {
-    position: relative; // For positioning the dropdown
-    display: inline-block;
+    position: relative;
   }
 
   &__user-btn {
@@ -78,40 +100,66 @@
     color: white;
     font-size: 1.2rem;
     cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #f39c12;
+    }
   }
 
+  // Dropdown Menu
   &__user-dropdown {
     position: absolute;
-    top: 100%;
+    top: 40px;
     right: 0;
-    background-color: white;
-    color: black;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background: white;
+    color: #333;
+    width: 160px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     list-style: none;
-    padding: 0;
-    margin: 0;
-    display: none; // Hidden by default
-    min-width: 160px; // Minimum width
-    &.show{
-        display: block; // Show when the button is clicked
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+
+    .header__user-menu:hover & {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
   }
 
   &__user-item {
-    padding: 0.5rem 1rem;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #f39c12;
+      color: white;
+    }
   }
 
   &__user-link {
-    color: black;
     text-decoration: none;
-    display: block; // Make the whole list item clickable
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-    &:hover {
-      background-color: #f0f0f0; // Light gray on hover
+  // RESPONSIVE
+  @media (max-width: 768px) {
+    &__container {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    &__center {
+      width: 100%;
     }
   }
 }

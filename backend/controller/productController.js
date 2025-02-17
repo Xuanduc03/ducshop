@@ -6,7 +6,6 @@ module.exports.getProductsByCategory = async (req, res) => {
     try {
         const { categoryId } = req.params;
         const products = await Product.find({ category: categoryId }).populate("category");
-        console.log(categoryId);
         res.status(200).json({ success: true, data: products });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
@@ -40,8 +39,10 @@ module.exports.getProductById = async (req, res) => {
 module.exports.createProduct = async (req, res) => {
     try {
         const product = new Product(req.body);
+        
         await product.save();
         res.status(201).json({ success: true, data: product });
+        console.log(product);
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }

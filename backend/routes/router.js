@@ -1,5 +1,5 @@
 const express = require("express");
-const { SignUp, Login, Logout, GetInfo } = require("../controller/userController");
+const { SignUp, Login, Logout, GetInfo, getAllUsers } = require("../controller/userController");
 const authToken = require("../middleware/authToken");
 const {
     createCategory,
@@ -24,6 +24,7 @@ router.post('/signup', SignUp);
 router.post('/login', Login);
 router.post('/logout', authToken, Logout);
 router.get('/user', authToken, GetInfo);
+router.get('/allusers', getAllUsers);
 
 //api router category
 router.get("/categories", getCategoriesWithChildren);

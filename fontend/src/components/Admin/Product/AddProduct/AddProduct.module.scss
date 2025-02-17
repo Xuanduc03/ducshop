@@ -1,94 +1,252 @@
 .product-form {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  left: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  .form-left,
+  .form-right {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-group {
+    label {
+      display: block;
+      font-weight: 600;
+      margin: 5px 0;
+      color: #333;
     }
-  
-    .form-left,
-    .form-right {
+
+    input {
+      margin-bottom: 6px;
+    }
+
+    .select-category {
+      width: 100%;
+      padding: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .size-checkbox {
       display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-  
-    .form-group {
-      label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 5px;
-        color: #333;
-      }
-  
-      input,
-      textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        transition: border-color 0.3s ease;
-  
-        &:focus {
-          border-color: #007bff;
-          outline: none;
-        }
-      }
-  
-      textarea {
-        resize: vertical;
-        min-height: 80px;
-      }
-    }
-  
-    .image-input,
-    .color-input,
-    .size-input {
-      display: flex;
-      gap: 10px;
       align-items: center;
-      margin-bottom: 10px;
-  
-      input {
-        flex: 1;
-      }
-  
-      input[type="color"] {
-        width: 40px;
-        height: 40px;
-        border: none;
-        padding: 3px;
-        cursor: pointer;
-      }
-    }
-  
-    .form-actions {
-      grid-column: span 2;
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-  
-      button {
-        padding: 10px 15px;
-        border: none;
-        background-color: #007bff;
-        color: white;
-        font-weight: bold;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-  
-        &:hover {
-          background-color: #0056b3;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      background: #f9f9f9;
+      transition: all 0.3s ease;
+
+      input[type="checkbox"] {
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid #999;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+
+        &:checked {
+          background-color: #007bff;
+          border-color: #007bff;
+          position: relative;
+
+          &::after {
+            content: "✔";
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
         }
       }
+
+      &:hover {
+        background: #f1f1f1;
+      }
+    }
+
+    // Bố cục danh sách checkbox size
+    .form-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      .size-checkbox {
+        width: 180px; // Điều chỉnh kích thước hộp size
+      }
+    }
+
+
+    .btn-handle {
+      background-color: #0095ff;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+      color: #fff;
+      cursor: pointer;
+      font-family: -apple-system, system-ui, "Segoe UI", "Liberation Sans", sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.15385;
+      margin: 0;
+      outline: none;
+      padding: 8px .8em;
+      position: relative;
+      text-align: center;
+
+      .btn-handle:hover,
+      .btn-handle:focus {
+        background-color: #07c;
+      }
+
+      .btn-handle:focus {
+        box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+      }
+
+      .btn-handle:active {
+        background-color: #0064bd;
+        box-shadow: none;
+      }
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
     }
   }
-  
+
+  .image-input,
+  .color-input,
+  .size-input {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+
+    input {
+      flex: 1;
+    }
+
+    input[type="color"] {
+      width: 40px;
+      height: 40px;
+      border: none;
+      padding: 3px;
+      cursor: pointer;
+    }
+  }
+
+  .button-19 {
+    appearance: button;
+    background-color: #1899D6;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: din-round, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 10px;
+    margin: 0;
+    outline: none;
+    overflow: visible;
+    padding: 13px 16px;
+    height: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    transform: translateZ(0);
+    transition: filter .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 100%;
+
+
+    .button-19:after {
+      background-clip: padding-box;
+      background-color: #1CB0F6;
+      border: solid transparent;
+      border-radius: 16px;
+      border-width: 0 0 4px;
+      bottom: -4px;
+      content: "";
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: -1;
+    }
+
+    .button-19,
+    .button-19:focus {
+      user-select: auto;
+    }
+
+    .button-19:hover:not(:disabled) {
+      filter: brightness(1.1);
+      -webkit-filter: brightness(1.1);
+    }
+
+    .button-19:disabled {
+      cursor: auto;
+    }
+
+    .button-19:active {
+      border-width: 4px 0 0;
+      background: none;
+    }
+  }
+
+
+  .form-actions {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+
+  }
+}

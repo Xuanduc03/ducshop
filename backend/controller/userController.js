@@ -141,3 +141,13 @@ module.exports.GetInfo = async (req, res) => {
     }
 
 }
+
+// Lấy danh sách sản phẩm
+module.exports.getAllUsers = async (req, res) => {
+    try {
+        const user = await User.find();
+        res.status(200).json({ success: true, data: user });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};

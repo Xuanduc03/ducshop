@@ -10,6 +10,9 @@ const productSchema = new mongoose.Schema({
     features : {
         type: String
     },
+    brandNew : {
+        type: Boolean
+    },
     price: {
         current: {
             type: Number,

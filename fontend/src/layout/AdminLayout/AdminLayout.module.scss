@@ -1,54 +1,23 @@
 .admin-layout {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-  
-    .sidebar {
-      width: 250px;
-      background-color: #2c3e50;
-      color: white;
-      height: 100vh;
-      padding: 20px;
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      transition: width 0.3s ease;
-  
-      &.collapsed {
-        width: 80px;
-      }
-    }
-  
-    .main-content {
-      height: auto;
-      flex: 1;
-      margin-left: 250px; // Đẩy nội dung chính sang phải
-      padding: 20px;
-      transition: margin-left 0.3s ease;
-  
-      &.collapsed {
-        margin-left: 80px;
-      }
-    }
-  
-    .header {
-      position: fixed;
-      top: 0;
-      left: 250px;
-      right: 0;
-      height: 60px;
-      background-color: #34495e;
-      color: white;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      z-index: 1000;
-      transition: left 0.3s ease;
-  
-      &.collapsed {
-        left: 80px;
-      }
-    }
-  }
-  
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.admin-container {
+  display: flex;
+  flex: 1;
+}
+
+// Main content khi sidebar mở rộng / thu gọn
+.main-content {
+  flex: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+// Khi sidebar thu gọn
+.main-content.collapsed {
+  margin-left: 60px; // Sidebar thu nhỏ
+}
+
