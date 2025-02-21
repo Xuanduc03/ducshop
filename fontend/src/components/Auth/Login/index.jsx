@@ -5,14 +5,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import SummaryApi from "~/utils/ApiRoute";
-import { fetchUserInfo } from "~/redux/userSlice";
-import { useDispatch } from "react-redux";
+import { fetchUserInfo, loginUser } from "~/redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {user, error} = useSelector((state) => state.auth);
   const [data, setData] = useState({
     phone: "", password: ""
   });
@@ -43,6 +44,7 @@ function Login() {
       });
 
       if (response.data.success) {
+        dispatch(loginUser(data));
         toast.success("Đăng nhập thành công");
         navigate("/");
         window.location.reload();

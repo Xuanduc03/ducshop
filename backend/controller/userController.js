@@ -123,7 +123,7 @@ module.exports.Logout = async (req, res) => {
 
 module.exports.GetInfo = async (req, res) => {
     try {
-        const user = await User.findById(req.user._id)
+        const user = await User.findById(req.user._id).select("-password");
 
         res.status(200).json({
             data: user,

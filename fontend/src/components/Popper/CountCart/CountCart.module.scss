@@ -1,3 +1,16 @@
+.content {
+  width: 300px;
+  max-height: 300px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  overflow-y: auto;
+  border-radius: 8px;
+
+    // Tuỳ chỉnh thanh cuộn (Scrollbar)
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+}
+
 .list-cart {
     background-color: #fff;
     margin-top: 20px;
@@ -40,7 +53,7 @@
   
       img {
         width: 60px;
-        height: 60px;
+        height: 80px;
         border-radius: 8px;
         object-fit: cover;
         margin-right: 12px;

@@ -2,48 +2,62 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import SummaryApi from "~/utils/ApiRoute";
 
-// Action lấy thông tin user từ API
-export const fetchUserInfo = createAsyncThunk("user/fetchUserInfo", async (_, { rejectWithValue }) => {
-    try {
-        const response = await axios.get(SummaryApi.GetUser.url, { withCredentials: true });
-        if (response.data.success) {
-            return response.data.user;
-        } else {
-            return rejectWithValue("Failed to fetch user");
+// lấy user từ localstorage
+const user = JSON.parse(localStorage.getItem("user")) || null;
+
+export const loginUser = createAsyncThunk("auth/loginUser", 
+    async (userData, thunkAPI) => {
+        try {
+            const response = await axios.post("http://localhost:8080/api/login", userData);
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data);
         }
-    } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Error fetching user");
+    }
+);
+
+//asycn thunk fetch user 
+export const fetchUser = createAsyncThunk("auth/fetchUser", 
+    async (_, thunkAPI) => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await axios.get("http://localhost:8080/api/user", {
+                headers : {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    }
+);
+
+//slice cho auth 
+const authSlice = createSlice({
+    name: "auth",
+    initialState: {
+        user, 
+        status: "idle", 
+        error: null
+    },
+    reducers : {
+        logout : (state) => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            state.user = null;
+        },
+    },
+    extraReducers : (builder) => {
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+            state.user = action.payload;
+        })
+        .addCase(fetchUser.fulfilled, (state, action) => {
+            state.user = action.payload;
+        })
     }
 });
 
-const userSlice = createSlice({
-    name: "user",
-    initialState: {
-        data: null,
-        loading: false,
-        error: null,
-    },
-    reducers: {
-        logoutUser: (state) => {
-            state.data = null;
-        },
-    },
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchUserInfo.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(fetchUserInfo.fulfilled, (state, action) => {
-                state.loading = false;
-                state.data = action.payload;
-            })
-            .addCase(fetchUserInfo.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
-            });
-    },
-});
-
-export const { logoutUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { logout } = authSlice.actions;
+export default authSlice.reducer;

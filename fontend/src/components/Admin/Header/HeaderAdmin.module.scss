@@ -1,6 +1,6 @@
 .header {
-  background: #2c3e50;
-  color: #fff;
+  background: #d7d7d7;
+  color: #2c3e50;
   padding: 10px 20px;
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@
   &__toggle-btn {
     background: none;
     border: none;
-    color: white;
+    color: #333;
     font-size: 1.2rem;
     cursor: pointer;
     transition: color 0.3s ease;
@@ -63,7 +63,7 @@
       border: none;
       outline: none;
       background: transparent;
-      color: white;
+      color: #333;
       font-size: 1rem;
 
       &::placeholder {
@@ -74,7 +74,7 @@
     button {
       background: none;
       border: none;
-      color: white;
+      color: #333;
       padding: 8px 15px;
       cursor: pointer;
       transition: color 0.3s ease;
@@ -97,7 +97,7 @@
   &__user-btn {
     background: none;
     border: none;
-    color: white;
+    color: #333;
     font-size: 1.2rem;
     cursor: pointer;
     transition: color 0.3s ease;
@@ -112,7 +112,7 @@
     position: absolute;
     top: 40px;
     right: 0;
-    background: white;
+    background: #ddd;
     color: #333;
     width: 160px;
     border-radius: 5px;

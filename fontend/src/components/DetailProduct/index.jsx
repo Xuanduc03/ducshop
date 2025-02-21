@@ -2,19 +2,48 @@ import React, { useState } from "react";
 import style from "./DetailProduct.module.scss";
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "~/redux/cartSlice";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(style);
 
-const ImageSwitcher = ({ images = [], productName, price, discounts, colors, sizes, description, category,subcategory }) => {
+const DetailProduct = ({ product }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedColor, setSelectedColor] = useState(colors?.[0]?.name || "");
-  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState(product.colors?.[0]?.name || "");
+  const [selectedSize, setSelectedSize] = useState(null);
   const [selectQuantity, setSelectQuantity] = useState(1);
 
   const handleImageChange = (index) => setCurrentIndex(index);
   const handleColorChange = (color) => setSelectedColor(color);
   const handleSizeChange = (size) => setSelectedSize(size);
+
+  const handleCategoryClick = (category) => {
+    navigate(`/collection/${category._id}`, { state: { categoryName: category.name } });
+  }
+
+  const handleAddToCart = (product) => {
+    if (!selectedColor || !selectedSize) {
+      toast.error("Vui lòng chọn màu và kích thước");
+      return;
+    } else {
+      toast.success(`Thêm ${product.productName} thành công`);
+      dispatch(addToCart({
+        _id: product._id,
+        productName: product.productName,
+        price: product.price.current,
+        images: product.images[0].src,
+        category: product.category.name,
+        size: selectedSize,
+        color: selectedColor,
+        quantity: 1
+      }));
+    }
+  }
 
   return (
     <div className={cx("product-detail")}>
@@ -22,15 +51,15 @@ const ImageSwitcher = ({ images = [], productName, price, discounts, colors, siz
         <ul>
           <Link to={'/'}>Trang chủ</Link>
           <span> / </span>
-          <Link to={'/collection'}>{category}</Link>
+          <a onClick={() => handleCategoryClick(product.category)}>{product.category.name}</a>
           <span> / </span>
-          <Link>{subcategory}</Link>
+          <Link>{product.subcategory}</Link>
         </ul>
       </nav>
       <div className={cx("image-switcher")}>
         {/* Left - Thumbnails */}
         <div className={cx("thumbnails")}>
-          {images.map((image, index) => (
+          {product.images.map((image, index) => (
             <button
               key={index}
               onClick={() => handleImageChange(index)}
@@ -43,16 +72,19 @@ const ImageSwitcher = ({ images = [], productName, price, discounts, colors, siz
 
         {/* Center - Main Image */}
         <div className={cx("main-image")}>
-          <img src={images[currentIndex]?.src} alt={`Image ${currentIndex}`} />
+          <img src={product.images[currentIndex]?.src} alt="" />
         </div>
 
         {/* Right - Product Details */}
         <div className={cx("details")}>
-          <h1 className={cx("product-name")}>{productName}</h1>
-          <span className={cx("original-price")}>{price.original}đ</span>
+          <h1 className={cx("product-name")}>{product.productName}</h1>
+          <p>{product.features}</p>
+          {product.price.original && (
+            <span className={cx("original-price")}>{product.price.original.toLocaleString("vi-VN")}đ</span>
+          )}
           <div className={cx("price")}>
-            <span className={cx("current-price")}>{price.current}đ</span>
-            <span className={cx("discount")}>{discounts}</span>
+            <span className={cx("current-price")}>{product.price.current.toLocaleString("vi-VN")}đ</span>
+            <span className={cx("discount")}>{product.discounts}</span>
           </div>
 
           {/* select color button */}
@@ -60,7 +92,7 @@ const ImageSwitcher = ({ images = [], productName, price, discounts, colors, siz
             Màu sắc: <strong className={cx("selected")}>{selectedColor}</strong>
           </p>
           <div className={cx("colors")}>
-            {colors.map((color, index) => (
+            {product.colors.map((color, index) => (
               <button
                 key={index}
                 className={cx("color", { active: selectedColor === color.name })}
@@ -75,7 +107,7 @@ const ImageSwitcher = ({ images = [], productName, price, discounts, colors, siz
             <strong className={cx("selected")}>{selectedSize}</strong>
           </p>
           <div className={cx("sizes")}>
-            {sizes.map((size, index) => (
+            {product.sizes.map((size, index) => (
               <Tippy
                 key={index}
                 placement="bottom"
@@ -113,7 +145,7 @@ const ImageSwitcher = ({ images = [], productName, price, discounts, colors, siz
               >
                 +</button>
             </div>
-            <button className={cx("add-to-cart")}><i className="fa-solid fa-bag-shopping"></i>{selectedSize ? "Thêm vào giỏ hàng" : "Chọn kích thước"}</button>
+            <button className={cx("add-to-cart")} onClick={() => handleAddToCart(product)}><i className="fa-solid fa-bag-shopping"></i>{selectedSize ? "Thêm vào giỏ hàng" : "Chọn kích thước"}</button>
           </div>
 
           <div className={cx("product-policy")}>
@@ -142,4 +174,4 @@ const ImageSwitcher = ({ images = [], productName, price, discounts, colors, siz
   );
 };
 
-export default ImageSwitcher;
+export default DetailProduct;

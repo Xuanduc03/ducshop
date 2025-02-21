@@ -1,0 +1,115 @@
+.container {
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+  
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+        .add-button {
+        background: #007bff;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.3s;
+  
+        &:hover {
+          background: darken(#007bff, 10%);
+        }
+      }
+    }
+
+    .search-input {
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        width: 250px;
+
+        &:focus {
+          border-color: #007bff;
+        }
+      }
+  
+    .table-container {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+      table {
+        width: 100%;
+        border-collapse: collapse;
+  
+        th, td {
+          padding: 12px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+  
+        th {
+          background: #007bff;
+          color: white;
+        }
+  
+          .edit-button, .delete-button {
+            cursor: pointer;
+            padding: 5px 10px;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: 0.3s;
+          }
+  
+          .edit-button {
+            background: #ffc107;
+            color: white;
+  
+            &:hover {
+              background: darken(#ffc107, 10%);
+            }
+          }
+  
+          .delete-button {
+            background: #dc3545;
+            color: white;
+  
+            &:hover {
+              background: darken(#dc3545, 10%);
+            }
+          }
+        
+      }
+    }
+  
+    .pagination {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+  
+      button {
+        padding: 6px 12px;
+        border: 1px solid #007bff;
+        background: white;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: 0.3s;
+  
+        &.active {
+          background: #007bff;
+          color: white;
+        }
+  
+        &:hover {
+          background: #007bff;
+          color: white;
+        }
+      }
+    }
+  }
+  

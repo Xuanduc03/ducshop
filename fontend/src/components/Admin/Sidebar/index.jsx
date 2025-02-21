@@ -24,7 +24,7 @@ const Sidebar = () => {
           </Link>
         </li>
         <li className={cx('sidebar__item')}>
-          <Link to={'/admin/product/addproduct'} className={cx('sidebar__link')}>
+          <Link to={'/admin/products'} className={cx('sidebar__link')}>
             <FontAwesomeIcon icon={faBoxes} className={cx('sidebar__icon')} />
             Sản phẩm
           </Link>

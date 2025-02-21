@@ -37,91 +37,6 @@ const Category = [
 
 ];
 
-const products = [
-  {
-    image: [
-      "https://media3.coolmate.me/cdn-cgi/image/width=672,height=990,quality=85/uploads/December2024/2484CW.ST002--0048--NAU-3D2_78.jpg",
-      "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/December2024/2484CW.ST002--0048--NAU-3D2_78.jpg"
-    ], 
-    name: "Áo Sweater French Terry Oversize",
-    category: "Áo nam",
-    price: "319.000",
-    oldPrice: "240.000",
-    discount: "-20",
-    colors: [
-      { name: "Đen", code: "#000000" },
-      { name: "Xanh", code: "#0000ff" },
-      { name: "Xám", code: "#808080" },
-    ],
-    sizes: ["M", "L", "XL", "2XL", "3XL"],
-  },
-  {
-    image: [
-      "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/February2025/24CM.MAWCS.PAZ994_1_1_DEN_1.jpg",
-      "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/February2025/24CM.MAWCS.PAZ994_2_1_DEN_1.jpg"
-    ], 
-    name: "Quần dài nam thể thao co giãn đa năng",
-    price: "231.000",
-    oldPrice: "289.000",
-    discount: "-20",
-    colors: [
-      { name: "Đen", code: "#000000" },
-      { name: "Xanh", code: "#0000ff" },
-      { name: "Xám", code: "#808080" },
-    ],
-    sizes: ["M", "L", "XL", "2XL", "3XL"],
-  },
-  {
-    image: [
-      "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/December2024/25CS.UPDTO.TSA180_2D_TRANG_IV_48.jpg",
-      "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/December2024/25CS.UPDTO.TSA180_TRANG_NBEHIND_53.jpg"
-    ], 
-    name: "Áo Sweater French Terry Oversize",
-    price: "319.000",
-    oldPrice: "240.000",
-    discount: "-20",
-    colors: [
-      { name: "Đen", code: "#000000" },
-      { name: "Xanh", code: "#0000ff" },
-      { name: "Xám", code: "#808080" },
-    ],
-    sizes: ["M", "L", "XL", "2XL", "3XL"],
-  },
-  {
-    image: [
-      "https://media3.coolmate.me/cdn-cgi/image/width=672,height=990,quality=85/uploads/December2024/2484CW.ST002--0048--NAU-3D2_78.jpg",
-      "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/December2024/2484CW.ST002--0048--NAU-3D2_78.jpg"
-    ], 
-    name: "Áo Sweater French Terry Oversize",
-    price: "319.000",
-    oldPrice: "240.000",
-    discount: "-20",
-    colors: [
-      { name: "Đen", code: "#000000" },
-      { name: "Xanh", code: "#0000ff" },
-      { name: "Xám", code: "#808080" },
-    ],
-    sizes: ["M", "L", "XL", "2XL", "3XL"],
-  },
-  {
-    image: [
-      "https://media3.coolmate.me/cdn-cgi/image/width=672,height=990,quality=85/uploads/December2024/2484CW.ST002--0048--NAU-3D2_78.jpg",
-      "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/December2024/2484CW.ST002--0048--NAU-3D2_78.jpg"
-    ], 
-    name: "Áo Sweater French Terry Oversize",
-    price: "319.000",
-    oldPrice: "240.000",
-    discount: "-20",
-    colors: [
-      { name: "Đen", code: "#000000" },
-      { name: "Xanh", code: "#0000ff" },
-      { name: "Xám", code: "#808080" },
-    ],
-    sizes: ["M", "L", "XL", "2XL", "3XL"],
-  },
-];
-
-
 const BannerItem = [
   {
     image : "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/February2025/Do_thu_dong_-_Desktop.jpg",
@@ -148,7 +63,6 @@ export default function Home() {
       <ListCategory items={Category} />
       {/* <ListProduct items={products}/> */}
       <Banners items={BannerItem}/>
-      Home Page
     </div>
   )
 }

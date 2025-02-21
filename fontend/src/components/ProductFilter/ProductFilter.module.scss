@@ -162,5 +162,19 @@
         }
       }
     }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .subcategory-list{
+        flex-wrap: wrap;
+      }
+      .product-list__item {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
   }
   

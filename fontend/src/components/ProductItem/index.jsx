@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import style from './ProductItem.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(style);
 
 export const ProductItem = ({ product, index }) => {
+    const navigate = useNavigate();
     const [selectedColor, setSelectedColor] = useState("");
     const [currentImage, setCurrentImage] = useState(product.images[0].src || "");
 
-    const handleColorChange = (color) => setSelectedColor(color);
+    const handleProductClick = (product) => {
+        navigate(`/product/${product._id}`);
+    }
+     const handleColorChange = (color) => setSelectedColor(color);
 
     return (
         <div key={index} className={cx("product-item")}>
@@ -53,14 +57,14 @@ export const ProductItem = ({ product, index }) => {
                 ))}
             </div>
 
-            <Link to={`/product/${product._id}`} className={cx("product-info")}>
+            <a onClick={() => handleProductClick(product)} key={product._id} className={cx("product-info")}>
                 <p className={cx("product-name")}>{product.productName}</p>
                 <p className={cx("product-price")}>
                     {product.price.current} đ
                     <span className={cx("old-price")}>{product.price.original && " "} đ</span>
                     <p className={cx("product-discount")}>{product.discounts}</p>
                 </p>
-            </Link>
+            </a>
         </div>
     );
 };

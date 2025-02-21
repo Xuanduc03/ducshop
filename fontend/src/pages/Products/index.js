@@ -1,4 +1,6 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import DetailProduct from "~/components/DetailProduct";
 
 
@@ -26,17 +28,35 @@ const productData = {
   ],
   sizes: [
     { size: 'M', heightRange: '1m60 - 1m65', weightRange: '48kg' },
-     {size: 'S', heightRange: '1.6m - 1.65m', weightRange: '48kg' },
-     {size: 'X', heightRange: '1.6m - 1.65m', weightRange: '48kg' },
-     {size: 'XL', heightRange: '1.6m - 1.65m', weightRange: '48kg' },
-     {size: 'L', heightRange: '1.6m - 1.65m', weightRange: '48kg' }
+    { size: 'S', heightRange: '1.6m - 1.65m', weightRange: '48kg' },
+    { size: 'X', heightRange: '1.6m - 1.65m', weightRange: '48kg' },
+    { size: 'XL', heightRange: '1.6m - 1.65m', weightRange: '48kg' },
+    { size: 'L', heightRange: '1.6m - 1.65m', weightRange: '48kg' }
   ],
 };
 
 export const Products = () => {
+
+  const { id } = useParams();
+  const [products, setProducts] = useState(null);
+
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const responseProduct = await axios.get(`http://localhost:8080/api/product/${id}`);
+        setProducts(responseProduct.data.data);
+      } catch (error) {
+        console.error("Lấy sản phẩm ko thành công", error);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+  console.log('productId - detail ', products);
   return (
     <div>
-      <DetailProduct {...productData} />
+     {products ? <DetailProduct product={products} /> : <p>Loading...</p>}
     </div>
   )
 }

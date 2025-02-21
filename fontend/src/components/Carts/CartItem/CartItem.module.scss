@@ -3,11 +3,13 @@
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding: 10px 0;
+    height: 181px;
   }
   
   .cart-item__image {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 160px;
+    border-radius: 8px;
     object-fit: cover;
     margin-right: 10px;
   }
@@ -15,11 +17,19 @@
   .cart-item__info {
     flex: 1;
   }
-  
-  .cart-item__category {
-    font-size: 14px;
-    font-weight: bold;
+  .cart-item__type {
     color: #666;
+    margin-bottom: 7px;
+  }
+  .cart-item__title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 7px;
+    
+    &:hover {
+      cursor: pointer;
+    }
   }
   
   .cart-item__name {

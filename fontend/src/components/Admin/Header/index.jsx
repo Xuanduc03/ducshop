@@ -3,6 +3,7 @@ import style from "./HeaderAdmin.module.scss";
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faSearch, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'; // Import icons
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(style);
 
@@ -33,7 +34,7 @@ const HeaderAdmin = () => {
             </button>
             <ul className={cx('header__user-dropdown')}>
               <li className={cx('header__user-item')}>
-                <a href="#" className={cx('header__user-link')}>Profile</a>
+                <Link to={'/'} className={cx('header__user-link')}>Home</Link>
               </li>
               <li className={cx('header__user-item')}>
                 <a href="#" className={cx('header__user-link')}>Settings</a>

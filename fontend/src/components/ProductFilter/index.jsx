@@ -20,7 +20,6 @@ const ProductFilter = () => {
         const responseCategory = await axios.get(`http://localhost:8080/api/subcategories/${categoryId}`);
         const responseProduct = await axios.get(`http://localhost:8080/api/products/category/${categoryId}`);
         setCategories(responseCategory.data.data);
-        console.log(responseProduct.data.data);
         setProducts(responseProduct.data.data);
       } catch (error) {
         console.error("Lấy danh mục ko thành công", error);
