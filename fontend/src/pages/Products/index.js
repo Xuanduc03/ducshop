@@ -53,7 +53,7 @@ export const Products = () => {
 
     fetchProduct();
   }, [id]);
-  console.log('productId - detail ', products);
+
   return (
     <div>
      {products ? <DetailProduct product={products} /> : <p>Loading...</p>}

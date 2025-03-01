@@ -3,60 +3,45 @@ import classNames from "classnames/bind";
 import styles from "./Login.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
-import SummaryApi from "~/utils/ApiRoute";
-import { fetchUserInfo, loginUser } from "~/redux/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { login } from "~/services/userService";
 
 const cx = classNames.bind(styles);
 
 function Login() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const {user, error} = useSelector((state) => state.auth);
   const [data, setData] = useState({
-    phone: "", password: ""
+    phone: "", email: "", password: ""
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    setData({ ...data, [name]: value });
+    if (name === "phoneOrEmail") {
+      if (/^\d+$/.test(value)) {
+        setData({ ...data, phone: value, email: "" });
+      } else {
+        setData({ ...data, email: value, phone: "" });
+      }
+    } else {
+      setData({ ...data, [name]: value });
+    }
   };
 
   const handeSubmit = async (e) => {
     e.preventDefault();
 
-    if (!/^\d{10}$/.test(data.phone)) {
-      toast.error("SDT phải là 10 số");
+    if (!data.phone && !data.email) {
+      toast.error("Vui lòng nhập email hoặc số điện thoại");
       return;
     }
+    console.log(data);
 
     try {
-      const response = await axios({
-        url: SummaryApi.Login.url,
-        method: SummaryApi.Login.method,
-        withCredentials: 'true',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        data: data
-      });
-
-      if (response.data.success) {
-        dispatch(loginUser(data));
-        toast.success("Đăng nhập thành công");
-        navigate("/");
-        window.location.reload();
-      } else {
-        toast.error("Không thể đăng nhập lỗi thông tin");
-      }
+      await login(data);
+      toast.success("Đăng nhập thành công");
+      navigate("/");
+      window.location.reload();
     } catch (error) {
-      if (error.response) {
-        toast.error(error.response.data.message || "Có lỗi xảy ra khi đăng ký");
-      } else {
-        toast.error("Lỗi kết nối, vui lòng thử lại");
-      }
+      toast.error("Tài khoản và mật khẩu ko đúng");
     }
   }
   return (
@@ -67,15 +52,14 @@ function Login() {
 
         <form className={cx("login__form")} method="post" onSubmit={handeSubmit}>
           <div className={cx("form-group")}>
-            <label>Số điện thoại</label>
+            <label>Số điện thoại hoặc email</label>
             <input
               type="text"
-              value={data.phone}
-              name="phone"
+              value={data.phone ? data.phone : data.email}
+              name="phoneOrEmail"
               onChange={handleChange}
-              pattern="\d{10}"
               required
-              placeholder="Nhập email của bạn" />
+              placeholder="Nhập email hoặc SDT của bạn" />
           </div>
           <div className={cx("form-group")}>
             <label>Mật khẩu</label>

@@ -3,8 +3,9 @@ import classNames from "classnames/bind";
 import styles from "./Cart.module.scss";
 import CartItem from "../CartItem";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart, increaseQuantity, removeFromCart } from "~/redux/cartSlice";
+import { clearCart, removeFromCart } from "~/redux/cartSlice";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -44,11 +45,8 @@ const Cart = () => {
           <span>{totalPrice.toLocaleString("vi-VN")}đ</span>
         </div>
         <div className={cx("summary-row")}>
-          <span>Vận chuyển</span>
-          <select>
-            <option>Hỏa tốc - đ100.000</option>
-            <option>Express-Delivery - đ20.000</option>
-          </select>
+          <span>Giao hàng</span>
+          <p>Miễn phí ship</p>
         </div>
         <div className={cx("summary-row")}>
           <span>Giảm giá</span>
@@ -58,7 +56,7 @@ const Cart = () => {
           <span>Thành tiền</span>
           <span className={cx("total-price")}>{totalPrice.toLocaleString("vi-VN")}đ</span>
         </div>
-        <button className={cx("checkout-btn")}>Thanh toán</button>
+        <Link className={cx("checkout-btn")} to={'/checkout'}>Thanh toán</Link>
       </div>
     </div>
   );

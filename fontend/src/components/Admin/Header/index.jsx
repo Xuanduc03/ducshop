@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import style from "./HeaderAdmin.module.scss";
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faSearch, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'; // Import icons
+import { faBars, faSearch, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(style);
@@ -13,7 +13,7 @@ const HeaderAdmin = () => {
       <div className={cx('header__container')}>
         <div className={cx('header__left')}>
           <div className={cx('header__logo')}>
-          <span className={cx('logo-highlight')}>DUC</span>MATE
+            <span className={cx('logo-highlight')}>DUC</span>MATE
           </div>
           <button className={cx('header__toggle-btn')}>
             <FontAwesomeIcon icon={faBars} />
@@ -30,7 +30,8 @@ const HeaderAdmin = () => {
         <div className={cx('header__right')}>
           <div className={cx('header__user-menu')}>
             <button className={cx('header__user-btn')}>
-                <FontAwesomeIcon icon={faUser} />
+              <p className={cx("header__user-name")}>Admin</p>
+              <FontAwesomeIcon icon={faUser} />
             </button>
             <ul className={cx('header__user-dropdown')}>
               <li className={cx('header__user-item')}>
@@ -41,7 +42,7 @@ const HeaderAdmin = () => {
               </li>
               <li className={cx('header__user-item')}>
                 <a href="#" className={cx('header__user-link')}>
-                    <FontAwesomeIcon icon={faSignOutAlt} className="me-2"/> Đăng xuất
+                  <FontAwesomeIcon icon={faSignOutAlt} className="me-2" /> Đăng xuất
                 </a>
               </li>
             </ul>

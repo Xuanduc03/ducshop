@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./ProductFilter.module.scss";
 import axios from "axios";
@@ -14,6 +14,11 @@ const ProductFilter = () => {
 
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -27,12 +32,30 @@ const ProductFilter = () => {
     };
 
     fetchCategories();
-  }, [categoryId])
+  }, [categoryId]);
 
-  // State cho filter
-  const [selectedSubCategory, setSelectedSubCategory] = useState("");
-  const [selectedSize, setSelectedSize] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      const matchCategory = selectedSubCategory ? product.category._id === selectedSubCategory : true;
+      const matchSize = selectedSize ? product.sizes.some(size => size.name === selectedSize) : true;
+      const matchColor = selectedColor ? product.colors.some(color => color.name === selectedColor) : true;
+      return matchCategory && matchSize && matchColor;
+    })
+  }, [products, selectedSubCategory, selectedSize, selectedColor]);
+
+  const handleFilterSubCategory = async (subCategoryId) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/products/subcategory/${subCategoryId}`);
+      setProducts(response.data.data);
+    } catch (error) {
+      console.error("Lấy danh mục ko thành công", error);
+    }
+  };
+  const handleFilterChange = useCallback((type, value) => {
+    if (type === "subCategory") setSelectedSubCategory(value);
+    if (type === "size") setSelectedSize(value);
+    if (type === "color") setSelectedColor(value);
+  }, []);
 
   // Mảng kích cỡ và màu sắc
   const sizes = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
@@ -47,8 +70,6 @@ const ProductFilter = () => {
     { name: "Navy", code: "#000080" },
   ];
 
-
-
   return (
     <div className={cx("product-filter")}>
       {/* Sidebar */}
@@ -56,14 +77,14 @@ const ProductFilter = () => {
         {/* Filter Danh Mục Con */}
         <div className={cx("filter-group")}>
           <h4 className={cx("filter-title")}>Nhóm sản phẩm</h4>
+
           {categories?.map((subCategory) => (
             <div key={subCategory._id} className={cx("filter-item")}>
               <input
                 type="radio"
                 id={`category-${subCategory._id}`}
                 name="category"
-                checked={selectedSubCategory === subCategory.name}
-                onChange={() => setSelectedSubCategory(subCategory.name)}
+                onClick={() => handleFilterSubCategory(subCategory._id)}
               />
               <label htmlFor={`category-${subCategory._id}`}>
                 {subCategory.name}
@@ -114,17 +135,34 @@ const ProductFilter = () => {
         {/* Danh sách danh mục con */}
         <div className={cx("subcategory-list")}>
           {categories?.map((subCategory) => (
-            <div key={subCategory._id} className={cx("category-item")}>
+            <div
+              key={subCategory._id}
+              className={cx("category-item")}
+              onClick={() => handleFilterSubCategory(subCategory._id)}>
               <img src={subCategory.image} alt={subCategory.name} className={cx("subcategory-image")} />
               <p className={cx("subcategory-title")}>{subCategory.name}</p>
             </div>
           ))}
         </div>
 
+        {/* tổng sản phẩm và sắp xếp */}
+        <div className={cx("product-summary")}>
+          <p>{filteredProducts.length} sản phẩm</p>
+          <select onChange={(e) => console.log(e.target.value)}>
+            <option>Mới nhất</option>
+            <option>Bán chạy</option>
+            <option>Giá thấp đến cao</option>
+            <option>Giá cao đến thấp</option>
+            <option>% giảm giá</option>
+          </select>
+        </div>
+
         <div className={cx("product-list__item")}>
-          {products.map((product, index) => (
-            <ProductItem product={product} key={index} />
-          ))}
+        {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => <ProductItem product={product} key={product._id} />)
+          ) : (
+            <p>Không có sản phẩm nào phù hợp.</p>
+          )}
         </div>
 
       </div>

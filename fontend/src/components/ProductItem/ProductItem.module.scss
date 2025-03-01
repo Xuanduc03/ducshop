@@ -10,8 +10,30 @@
     .image-container {
       position: relative;
   
+      .brand-new {
+        position: absolute;
+        right: 5px;
+        top: 10px;
+        padding: 4px 8px; 
+        font-weight: bold;
+        font-size: 13px;
+        color: #fff;
+        background-color: #0891dc; 
+        border-radius: 12px;
+        transition: 0.4s ease-in-out;
+      }
+
+      .rate {
+        position: absolute;
+        left: 5px;
+        top: 10px;
+        font-size: 13px;
+        transition: 0.4s ease-in-out;
+      }
+
       .product-image {
         height: 350px;
+        border-radius: 5px;
         width: 100%;
         margin-bottom: 10px;
         transition: transform 0.3s ease; // Hiệu ứng phóng to nhẹ khi hover
@@ -39,8 +61,9 @@
         .sizes {
           display: flex;
           justify-content: center;
+          flex-wrap: wrap;
           gap: 8px;
-          margin-top: 8px;
+          margin-top: 8px; 
   
           .size-button {
             padding: 6px 12px;
@@ -103,7 +126,7 @@
 
       .product-price {
         margin: 5px 0;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: bold;
         display: flex;
         align-items: center;
@@ -118,13 +141,13 @@
       }
 
       .product-discount {
-        font-size: 14px;
+        font-size: 12px;
         color: var(--white);
-        background: #0891dc;
-        padding: 5px 5px;
+        background: #4083ff;
+        padding: 2px 5px;
         font-weight: bold;
         width: 50px;
-        border-radius: 16px;
+        border-radius: 10px;
       }
     }
 

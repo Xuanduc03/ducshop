@@ -13,6 +13,7 @@
 
     .img-category {
         height: 287px;
+        border-radius: 10px;
         transition: transform 0.3s ease; // Hiệu ứng mượt khi hover
 
         &:hover {

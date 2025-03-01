@@ -55,9 +55,9 @@ module.exports.SignUp = async (req, res) => {
 
 module.exports.Login = async (req, res) => {
     try {
-        const {phone, password} = req.body;
+        const {phone,email, password} = req.body;
 
-        if(!phone && !password) {
+        if((!phone && !email) && !password) {
             res.json({
                 message: "Please provide phone and password",
                 error: true,
@@ -65,7 +65,7 @@ module.exports.Login = async (req, res) => {
             })
         };
 
-        const userData = await User.findOne({phone});
+        const userData = await User.findOne({$or: [{phone}, {email}]});
 
         if(!userData){
             throw new Error("User has not account");

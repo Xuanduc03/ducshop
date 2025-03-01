@@ -49,13 +49,23 @@
         th, td {
           padding: 12px;
           text-align: left;
+          border: 1px solid #ddd;
           border-bottom: 1px solid #ddd;
         }
   
         th {
-          background: #007bff;
+          background: #65809c;
           color: white;
+          border-collapse: collapse;
         }
+
+        ul{
+          list-style: none;
+        }
+          .image-product {
+            width: 120px;
+            height: 170px;
+          }
   
           .edit-button, .delete-button {
             cursor: pointer;

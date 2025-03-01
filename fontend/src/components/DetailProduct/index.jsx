@@ -45,6 +45,7 @@ const DetailProduct = ({ product }) => {
     }
   }
 
+  console.log("subcategories", product);
   return (
     <div className={cx("product-detail")}>
       <nav className={cx("breadcrumb")}>
@@ -53,7 +54,7 @@ const DetailProduct = ({ product }) => {
           <span> / </span>
           <a onClick={() => handleCategoryClick(product.category)}>{product.category.name}</a>
           <span> / </span>
-          <Link>{product.subcategory}</Link>
+          <Link>{product.subcategory.name}</Link>
         </ul>
       </nav>
       <div className={cx("image-switcher")}>
@@ -84,7 +85,7 @@ const DetailProduct = ({ product }) => {
           )}
           <div className={cx("price")}>
             <span className={cx("current-price")}>{product.price.current.toLocaleString("vi-VN")}đ</span>
-            <span className={cx("discount")}>{product.discounts}</span>
+            <span className={cx("discount")}>-{product.discounts}</span>
           </div>
 
           {/* select color button */}
@@ -169,8 +170,22 @@ const DetailProduct = ({ product }) => {
           </div>
         </div>
       </div>
-    </div>
 
+      {/* description */}
+      <div className={cx("description")}>
+        <div className={cx("description-item")}>
+          <h2 className={cx("title")}>Mô tả sản phẩm</h2>
+          <p>{product.seoDescription}</p>
+        </div>
+        {
+          product.category.name === "Áo nam" && (
+            <div className={cx("description-item")}>
+              <h2 className={cx("title")}>Bảng chọn size</h2>
+              <img src="https://mcdn.coolmate.me/image/January2023/mceclip0_49.jpg" alt="" />
+            </div>
+          )}
+      </div>
+    </div>
   );
 };
 

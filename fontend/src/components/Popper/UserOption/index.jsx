@@ -1,56 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import style from './UserOption.module.scss'
 import classNames from 'classnames/bind';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import SummaryApi from '~/utils/ApiRoute';
 import { toast } from 'react-toastify';
+import { getUser, logout } from '~/services/userService';
 
 const cx = classNames.bind(style);
-export const UserOption = ({ children}) => {
+export const UserOption = ({ children }) => {
     const navigate = useNavigate();
+    const [user, setUser] = useState(null);
 
-     const [user, setUser] = useState(null);
-    
-      useEffect(() => {
-          const fetchUserInfo = async () => {
-              try {
-                  const response = await axios({
-                      url: SummaryApi.GetUser.url,
-                      method: SummaryApi.GetUser.method,
-                      withCredentials: true,
-                  });
-                  if (response.data.success) {
-                      setUser(response.data);
-                  }
-              } catch (error) {
-                  
-              }
-          };
-          fetchUserInfo();
-      }, []);
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await getUser();
+                setUser(response.data);
+            } catch (error) {
+               console.log("Lỗi khi lấy thông tin ", error) 
+            }
+        };
+        fetchUser();
+    }, []);
 
     const handleLogout = async () => {
         try {
-            const response = await axios({
-                url: SummaryApi.Logout.url,
-                method: SummaryApi.Logout.method,
-                withCredentials: true,
-            });
-
-            if(response.data.success) {
-                toast.success("Logout success");
-                window.location.reload();
-                navigate("/");
-            }else {
-                toast.error("cann't logout");
-            }
+            await logout();
+            toast.success("Đã đăng xuất");
+            setUser(null);
+            navigate("/");
+            setTimeout(() => window.location.reload(), 100);
         } catch (error) {
+            toast.error("cannot logout");
             console.log(error);
         }
-    };
+    }
     const renderItems = () => {
         return (
             <div className={cx("user-dropdown")}>
@@ -58,10 +43,13 @@ export const UserOption = ({ children}) => {
                     {user ? (
                         <>
                             <div className={cx("user-info")}>
-                                <p className={cx("username")}>Xin chào{user.fullname}</p>
+                                <p className={cx("username")}>Xin chào {user.fullname}</p>
                                 <p className={cx("email")}>{user.email}</p>
+                                {user.role === "admin" &&
+                                    <Link to={'/admin/dashboard'}>Trang chủ admin</Link>
+                                }
                             </div>
-                            <button className={cx("logout")} onClick={handleLogout}> 
+                            <button className={cx("logout")} onClick={handleLogout}>
                                 <i class="fa-solid fa-right-from-bracket"></i>Đăng xuất
                             </button>
                         </>

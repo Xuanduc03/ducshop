@@ -1,41 +1,8 @@
 import React from 'react'
 import { Carousel } from '~/components/Banner/carousel';
 import { Banners } from '~/components/Banner/banners';
-import { ListCategory } from '~/components/ListCategory'
-
-const Category = [
-  {
-    id: 1,
-    img: "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/February2025/image-cate-ao-thun.jpg",
-    name: "áo thun"
-  },
-  {
-    id: 2,
-    img: "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/February2025/image-cate-so-mi.jpg",
-    name: "sơ mi"
-  },
-  {
-    id: 3,
-    img: "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/February2025/image-cate-ao-khoac.jpg",
-    name: "Áo khoác"
-  },
-  {
-    id: 4,
-    img: "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/February2025/image-cate-quan-dai.jpg",
-    name: "Quần dài"
-  },
-  {
-    id: 5,
-    img: "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/February2025/image-cate-quan-short.jpg",
-    name: "quần short"
-  },
-  {
-    id: 6,
-    img: "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/February2025/image-cate-quan-lot.jpg",
-    name: "quần lót "
-  },
-
-];
+import { ListCategory } from '~/components/ListCategory';
+import { ListProduct } from '~/components/ListProduct';
 
 const BannerItem = [
   {
@@ -60,8 +27,8 @@ export default function Home() {
   return (
     <div>
       <Carousel />
-      <ListCategory items={Category} />
-      {/* <ListProduct items={products}/> */}
+      <ListCategory />
+      <ListProduct />
       <Banners items={BannerItem}/>
     </div>
   )

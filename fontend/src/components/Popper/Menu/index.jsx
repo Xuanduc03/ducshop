@@ -14,6 +14,10 @@ export const Menu = ({ children }) => {
     const handleCategoryClick = (category) => {
         navigate(`/collection/${category._id}`, { state: { categoryName: category.name } });
     }
+
+    const handleSubCategoryClick = (subCategory) => {
+        navigate(`/collection/subcategories/${subCategory._id}`);
+    }
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         const fetchCategories = async () => {
@@ -42,7 +46,7 @@ export const Menu = ({ children }) => {
                             </h3>
                             <ul className={cx('category-list')}>
                                 {category.children.map((subCategory) => (
-                                    <li key={subCategory._id} className={cx('category-item')}>
+                                    <li key={subCategory._id} onClick={() => handleSubCategoryClick(subCategory)} className={cx('category-item')}>
                                         <img src={subCategory.image} alt={subCategory.name} className={cx('subcategory-image')} />
                                         <p className={cx("subcategory-title")}>{subCategory.name}</p>
                                     </li>

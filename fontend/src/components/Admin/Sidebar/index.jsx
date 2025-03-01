@@ -12,10 +12,10 @@ const Sidebar = () => {
     <aside className={cx('sidebar')}>
       <ul className={cx('sidebar__nav')}>
         <li className={cx('sidebar__item')}>
-          <a href="#" className={cx('sidebar__link')}>
+          <Link to={'/admin/dashboard'} className={cx('sidebar__link')}>
             <FontAwesomeIcon icon={faChartLine} className={cx('sidebar__icon')} />
             Thống kê
-          </a>
+          </Link>
         </li>
         <li className={cx('sidebar__item')}>
           <Link to={'/admin/categories'} className={cx('sidebar__link')}>

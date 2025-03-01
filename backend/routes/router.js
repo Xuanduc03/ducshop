@@ -6,7 +6,8 @@ const {
     updateCategory,
     deleteCategory,
     getCategoriesWithChildren,
-    getSubcategories
+    getSubcategories,
+    getDetailCategory
 } = require("../controller/categoryController");
 const {
     getAllProducts,
@@ -14,7 +15,8 @@ const {
     getProductsByCategory,
     createProduct,
     updateProduct,
-    deleteProduct 
+    deleteProduct, 
+    getProductsBySubCategory
 } = require("../controller/productController");
 
 const router = express.Router();
@@ -22,13 +24,14 @@ const router = express.Router();
 //api router user
 router.post('/signup', SignUp);
 router.post('/login', Login);
-router.post('/logout', authToken, Logout);
+router.get('/logout', authToken, Logout);
 router.get('/user', authToken, GetInfo);
 router.get('/allusers', getAllUsers);
 
 //api router category
 router.get("/categories", getCategoriesWithChildren);
 router.get("/subcategories/:parentId", getSubcategories);
+router.get('/category/:id', getDetailCategory);
 router.post("/add-category", createCategory);
 router.put('/edit-category/:id', updateCategory);
 router.delete("/delete-category/:id", deleteCategory);
@@ -37,8 +40,9 @@ router.delete("/delete-category/:id", deleteCategory);
 router.get('/products', getAllProducts);
 router.get('/product/:id', getProductById);
 router.get('/products/category/:categoryId', getProductsByCategory);
+router.get('/products/subcategory/:subcategoryId', getProductsBySubCategory)
 router.post('/create-products', createProduct);
-router.put("/edit-product/:id", updateProduct);
-router.delete("/delete-product/:id", deleteProduct);
+router.put("/edit-product/:productId", updateProduct);
+router.delete("/delete-product/:productId", deleteProduct);
 
 module.exports = router;

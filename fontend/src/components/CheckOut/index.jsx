@@ -1,104 +1,137 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './Checkout.module.scss';
 import classNames from 'classnames/bind';
+import axios from 'axios';
 
 const cx = classNames.bind(style);
-const Checkout = ({ product }) => {
-return (
-    <div className={cx('checkout')}>
-        {/* Left Section */}
-        <div className={cx('checkout__left')}>
-            <h2>Thông tin đặt hàng</h2>
+const CheckOut = () => {
+    const [provinces, setProvinces] = useState([]);
+    const [districts, setDistricts] = useState([]);
+    const [wards, setWards] = useState([]);
 
-            <form className={cx('checkout__form')}>
-                <div className={cx('form-group')}>
-                    <label>Họ và tên</label>
-                    <div className={cx('form-row')}>
-                        <select>
-                            <option>Anh/Chị</option>
-                            <option>Ông</option>
-                            <option>Bà</option>
-                        </select>
-                        <input type="text" placeholder="Nhập tên" />
+    const [selectedProvince, setSelectedProvince] = useState("");
+    const [selectedDistrict, setSelectedDistrict] = useState("");
+    const [selectedWard, setSelectedWard] = useState("");
+
+    // 🏙️ Fetch danh sách tỉnh
+    useEffect(() => {
+        axios.get("https://provinces.open-api.vn/api/p/")
+            .then(res => setProvinces(res.data))
+            .catch(err => console.error("Lỗi lấy tỉnh: ", err));
+    }, []);
+
+    // 🏡 Khi chọn tỉnh -> Fetch huyện
+    useEffect(() => {
+        if (selectedProvince) {
+            axios.get(`https://provinces.open-api.vn/api/p/${selectedProvince}?depth=2`)
+                .then(res => setDistricts(res.data.districts))
+                .catch(err => console.error("Lỗi lấy huyện: ", err));
+        } else {
+            setDistricts([]);
+            setWards([]);
+        }
+    }, [selectedProvince]);
+
+    // 🏠 Khi chọn huyện -> Fetch xã
+    useEffect(() => {
+        if (selectedDistrict) {
+            axios.get(`https://provinces.open-api.vn/api/d/${selectedDistrict}?depth=2`)
+                .then(res => setWards(res.data.wards))
+                .catch(err => console.error("Lỗi lấy xã: ", err));
+        } else {
+            setWards([]);
+        }
+    }, [selectedDistrict]);
+
+    return (
+        <div className={cx('container')}>
+            <h1 className={cx('checkout-title')}>Thông tin đặt hàng</h1>
+
+            <div className={cx("cart-summary")}>
+                <h2>Tổng cộng</h2>
+                <div className={cx("summary-row")}>
+                    <span>Số lượng </span>
+                    <span>1209999đ</span>
+                </div>
+                <div className={cx("summary-row")}>
+                    <span>Giao hàng</span>
+                    <p>Miễn phí ship</p>
+                </div>
+                <div className={cx("summary-row")}>
+                    <span>Giảm giá</span>
+                    <input type="text" placeholder="Enter your code" />
+                </div>
+                <div className={cx("summary-total")}>
+                    <span>Thành tiền</span>
+                    <span className={cx("total-price")}>1209999đ</span>
+                </div>
+            </div>
+
+            <form action="">
+                <div className={cx("form-group")}>
+                    <div className={cx("input-group")}>
+                        <label htmlFor="">Họ và tên</label>
+                        <input type="text" name='fullName' />
+                    </div>
+                    <div className={cx("input-group")}>
+                        <label htmlFor="">Số điện thoại</label>
+                        <input type="text" name='phoneNumber' />
                     </div>
                 </div>
 
-                <div className={cx('form-group')}>
-                    <label>Email</label>
-                    <input type="email" placeholder="Nhập email" />
-                </div>
+                <div className={cx("form-group")}>
+                    <div className={cx("input-group")}>
+                        <label htmlFor="email">Email</label>
+                        <input type="email" name="email" id="" />
+                    </div>
 
-                <div className={cx('form-group')}>
-                    <label>Địa chỉ</label>
-                    <input type="text" placeholder="Nhập địa chỉ" />
-                </div>
+                    <div className={cx("input-group")}>
+                        {/* Chọn Tỉnh */}
+                        <select value={selectedProvince} onChange={(e) => setSelectedProvince(e.target.value)}>
+                            <option value="">Chọn tỉnh/thành phố</option>
+                            {provinces.map((province) => (
+                                <option key={province.code} value={province.code}>
+                                    {province.name}
+                                </option>
+                            ))}
+                        </select>
 
-                <div className={cx('form-group', 'form-row')}>
-                    <div>
-                        <label>Tỉnh/Thành phố</label>
-                        <select>
-                            <option>Hồ Chí Minh</option>
-                            <option>Hà Nội</option>
-                            <option>Đà Nẵng</option>
+                        {/* Chọn Huyện */}
+                        <select value={selectedDistrict} onChange={(e) => setSelectedDistrict(e.target.value)} disabled={!selectedProvince}>
+                            <option value="">Chọn quận/huyện</option>
+                            {districts.map((district) => (
+                                <option key={district.code} value={district.code}>
+                                    {district.name}
+                                </option>
+                            ))}
+                        </select>
+
+                        {/* Chọn Xã */}
+                        <select value={selectedWard} onChange={(e) => setSelectedWard(e.target.value)} disabled={!selectedDistrict}>
+                            <option value="">Chọn phường/xã</option>
+                            {wards.map((ward) => (
+                                <option key={ward.code} value={ward.code}>
+                                    {ward.name}
+                                </option>
+                            ))}
                         </select>
                     </div>
-                    <div>
-                        <label>Quận/Huyện</label>
-                        <select>
-                            <option>Chọn Quận/Huyện</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Phường/Xã</label>
-                        <select>
-                            <option>Chọn Phường/Xã</option>
-                        </select>
+
+                    <div className={cx("input-group")}>
+                        <label htmlFor="note">Ghi chú </label>
+                        <input type="note" name="note" id="" />
                     </div>
                 </div>
 
-                <div className={cx('form-group')}>
-                    <label>Ghi chú</label>
-                    <input type="text" placeholder="Ghi chú thêm (Ví dụ: Giao hàng giờ hành chính)" />
-                </div>
-
-                <div className={cx('form-group')}>
-                    <input type="checkbox" /> Gọi cho người khác nhận hàng (nếu có)
-                </div>
+                <button className={cx('checkout-btn')}>Đặt hàng</button>
             </form>
+
+            <div className={cx("payment-option")}>
+
+            </div>
+
         </div>
+    );
+}
 
-        {/* Right Section */}
-        <div className={cx('checkout__right')}>
-            <h2>Giỏ hàng</h2>
-            <div className={cx('cart-item')}>
-                <img src={product.image} alt={product.name} />
-                <div className={cx('cart-item__info')}>
-                    <h3>{product.name}</h3>
-                    <p>{product.color} / {product.size}</p>
-                    <div className={cx('cart-item__actions')}>
-                        <button className={cx('remove')}>Xóa</button>
-                        <div className={cx('quantity')}>
-                            <button>-</button>
-                            <span>{product.quantity}</span>
-                            <button>+</button>
-                        </div>
-                        <p className={cx('price')}>{product.price}đ</p>
-                    </div>
-                </div>
-            </div>
-
-            <div className={cx('voucher')}>
-                <input type="text" placeholder="Nhập mã giảm giá" />
-                <button>Áp dụng Voucher</button>
-            </div>
-
-            <div className={cx('checkout__summary')}>
-                <p>Thành tiền: <span>{product.totalPrice}đ</span></p>
-                <button className={cx('checkout-btn')}>Thanh toán</button>
-            </div>
-        </div>
-    </div>
-);
-};
-
-export default Checkout;
+export default CheckOut;

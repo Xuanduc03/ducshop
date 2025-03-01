@@ -7,10 +7,13 @@ const productSchema = new mongoose.Schema({
         trim: true,
         unique: true
     },
-    features : {
+    features: {
         type: String
     },
-    brandNew : {
+    seoDescription: {
+        type: String
+    },
+    brandNew: {
         type: Boolean
     },
     price: {
@@ -28,12 +31,24 @@ const productSchema = new mongoose.Schema({
         required: true,
     },
     subcategory: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category",
+        required: true,
+    },
+    stock: {
+        type: Number,
     },
     discounts: {
         type: String,
         default: "0%",
     },
+    types: [
+        {
+            name: {
+                type: String,
+            },
+        }
+    ],
     images: [
         {
             src: {

@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./ProductManager.module.scss";
+import { getAllProduct } from "~/services/productService";
+import { Link, useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
-
-const mockProducts = Array.from({ length: 50 }, (_, i) => ({
-  id: i + 1,
-  name: `Sản phẩm ${i + 1}`,
-  price: Math.floor(Math.random() * 1000000) + 100000,
-  category: "Áo Nam",
-}));
-
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 4;
 
 const ProductManager = () => {
-  const [products, setProducts] = useState(mockProducts);
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    
-  })
+    const fetchProduct = async () => {
+      const response = await getAllProduct();
+      setProducts(response.data);
+    };
+    fetchProduct();
+  }, []);
 
   const filteredProducts = products.filter((p) =>
-    p.name.toLowerCase().includes(search.toLowerCase())
+    p.productName.toLowerCase().includes(search.toLowerCase())
   );
   const paginatedProducts = filteredProducts.slice(
     (page - 1) * PAGE_SIZE,
@@ -35,11 +34,17 @@ const ProductManager = () => {
     setProducts(products.filter((p) => p.id !== id));
   };
 
+  const handleUpdate = (product) => {
+    console.log(product._id);
+    navigate(`/admin/product/editproduct/${product._id}`);
+  }
+
+
   return (
     <div className={cx("container")}>
       <div className={cx("header")}>
         <h2>Quản lý sản phẩm</h2>
-        <button className={cx("add-button")}>+ Thêm sản phẩm</button>
+        <Link to={'/admin/product/addproduct'} className={cx("add-button")} >+ Thêm sản phẩm</Link>
       </div>
 
       <input
@@ -55,7 +60,10 @@ const ProductManager = () => {
           <thead>
             <tr>
               <th>ID</th>
+              <th>Image</th>
               <th>Tên sản phẩm</th>
+              <th>Màu</th>
+              <th>Size</th>
               <th>Giá</th>
               <th>Danh mục</th>
               <th>Hành động</th>
@@ -65,11 +73,39 @@ const ProductManager = () => {
             {paginatedProducts.map((product) => (
               <tr key={product.id}>
                 <td>{product.id}</td>
-                <td>{product.name}</td>
-                <td>{product.price.toLocaleString()}đ</td>
-                <td>{product.category}</td>
+                <td><img src={product.images[0].src} alt="" className={cx("image-product")} /></td>
+                <td>{product.productName}</td>
                 <td>
-                  <button className={cx("edit-button")}>Sửa</button>
+                  <ul className={cx('size-list')}>
+                    {product.colors.map((color) => (
+                      <li key={color._id} className={cx('color-item')}>
+                        <p className={cx("color-title")}>{color.name}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+                <td>
+                  <ul className={cx('size-list')}>
+                    {product.sizes.map((size) => (
+                      <li key={size._id} className={cx('size-item')}>
+                        <p className={cx("size-title")}>{size.size}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+                <td className={cx("price")}>
+                  {product.price.original && (
+                    <span>Giá gốc: {product.price.original.toLocaleString("vi-VN")}đ</span>
+                  )}
+                  <p>Giảm giá: {product.discount}%</p>
+                  <p>Giá:{product.price.current}đ</p>
+                </td>
+                <td>{product.category.name}
+                  <br />
+                  
+                </td>
+                <td>
+                  <button className={cx("edit-button")} onClick={() => handleUpdate(product)} key={product._id}>Sửa</button>
                   <button
                     className={cx("delete-button")}
                     onClick={() => handleDelete(product.id)}

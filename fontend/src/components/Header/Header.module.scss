@@ -47,6 +47,7 @@
       transition: 0.3s all ease-in-out;
 
       &:hover {
+        cursor: pointer;
         background-color: rgba(199, 216, 244, 0.5);
       }
     }

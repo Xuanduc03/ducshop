@@ -1,10 +1,11 @@
-import { React, useRef } from 'react';
+import { React, useRef, useState, useEffect } from 'react';
 import style from "./ListProduct.module.scss";
 import classNames from 'classnames/bind';
 import { ProductItem } from '../ProductItem';
+import axios from 'axios';
 
 const cx = classNames.bind(style);
-export const ListProduct = ({ items = [] }) => {
+export const ListProduct = () => {
 
   const containerRef = useRef(null);
 
@@ -15,6 +16,21 @@ export const ListProduct = ({ items = [] }) => {
     }
   };
 
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const responseProduct = await axios.get(`http://localhost:8080/api/products`);
+        setProducts(responseProduct.data.data);
+      } catch (error) {
+        console.error("Lấy danh mục ko thành công", error);
+      }
+    };
+
+    fetchProduct();
+  }, []);
+
+  const newProduct = products.filter(product => product.brandNew === true);
   return (
     <div className={cx("product-slide")}>
       <button className={cx("previous-btn")} onClick={() => handleScroll("prev")}>
@@ -22,7 +38,7 @@ export const ListProduct = ({ items = [] }) => {
       </button>
 
       <div className={cx("product-container")} ref={containerRef}>
-        {items.map((product, index) => (
+        {newProduct.map((product, index) => (
           <ProductItem key={index} product={product}/>
         ))}
       </div>
